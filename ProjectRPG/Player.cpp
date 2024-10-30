@@ -3,6 +3,15 @@
 
 #include <iostream>
 
+Player::Player() :
+    bulletSpeed(1.0f), playerSpeed(1.2f)
+{
+}
+
+Player::~Player()
+{
+}
+
 void Player::Initialize()
 {
     boundingRectangle.setFillColor(sf::Color::Transparent);

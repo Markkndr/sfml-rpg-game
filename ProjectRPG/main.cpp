@@ -5,6 +5,7 @@
 
 #include "Player.h"
 #include "Enemy.h"
+#include "FrameRate.h"
 
 int main()
 {
@@ -18,22 +19,27 @@ int main()
 
     Enemy enemy;
     enemy.Initialize();
-    
+
+    FrameRate fps;
+    fps.Initialize();
+
     //LOAD
 
     player.Load();
 
     enemy.Load();
 
-    sf::Clock clock;
+    fps.Load();
 
     //LOAD
     
+    sf::Clock clock;
+
     //MAIN GAME LOOP
     while (window.isOpen())
     {
         sf::Time deltaTimeTimer = clock.restart();
-        float deltaTime = deltaTimeTimer.asMilliseconds();
+        double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0f; 
 
         //UPDATE
         sf::Event event;
@@ -45,6 +51,8 @@ int main()
 
         player.Update(deltaTime, enemy);
         enemy.Update(deltaTime);
+
+        fps.Update(deltaTime);
         //UPDATE
         
         //DRAW
@@ -52,7 +60,7 @@ int main()
         
         enemy.Draw(window);
         player.Draw(window);
-        
+        fps.Draw(window);
         window.display();
         //DRAW
     }

@@ -5,6 +5,9 @@ class Enemy
 {
 public:
 
+	Enemy();
+	~Enemy();
+
 	void Initialize();
 	void Load();
 

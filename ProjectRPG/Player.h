@@ -7,6 +7,9 @@ class Player
 {
 public:
 
+	Player();
+	~Player();
+
 	void Initialize();
 	void Load();
 
@@ -27,8 +30,8 @@ private:
 
 	sf::RectangleShape boundingRectangle;
 
-	float bulletSpeed = 1.0f;
+	float bulletSpeed;
 
-	float playerSpeed = 1.2f;
+	float playerSpeed;
 };
 
