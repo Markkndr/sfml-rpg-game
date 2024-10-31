@@ -36,7 +36,7 @@ int main()
     sf::Clock clock;
 
     //MAIN GAME LOOP
-    while (window.isOpen())
+    while (window.isOpen()) 
     {
         sf::Time deltaTimeTimer = clock.restart();
         double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0f; 
@@ -45,14 +45,14 @@ int main()
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
-                window.close();           
-        }
+            if (event.type == sf::Event::Closed) 
+                window.close();            
+        } 
 
-        player.Update(deltaTime, enemy);
-        enemy.Update(deltaTime);
+        player.Update(deltaTime, enemy); 
+        enemy.Update(deltaTime); 
 
-        fps.Update(deltaTime);
+        fps.Update(deltaTime); 
         //UPDATE
         
         //DRAW
