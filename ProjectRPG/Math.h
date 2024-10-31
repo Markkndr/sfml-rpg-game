@@ -8,4 +8,3 @@ public:
 
 	static bool DidRectCollide(sf::FloatRect rect1, sf::FloatRect rect2);
 };
-

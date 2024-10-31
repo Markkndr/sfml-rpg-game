@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "FrameRate.h"
+#include "Projectile.h"
 
 int main()
 {
@@ -49,9 +50,10 @@ int main()
                 window.close();            
         } 
 
-        player.Update(deltaTime, enemy); 
-        enemy.Update(deltaTime); 
+        sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
+        player.Update(deltaTime, enemy, mousePosition);
+        enemy.Update(deltaTime);
         fps.Update(deltaTime); 
         //UPDATE
         

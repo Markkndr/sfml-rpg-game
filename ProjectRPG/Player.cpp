@@ -4,7 +4,7 @@
 #include <iostream>
 
 Player::Player() :
-    bulletSpeed(1.0f), playerSpeed(1.2f)
+    playerSpeed(1.2f), fireRate(250.0f), fireRateTimer(1.0f), damage(10)
 {
 }
 
@@ -43,51 +43,63 @@ void Player::Load()
     }
 }
 
-void Player::Update(float deltaTime, Enemy& enemy)
+void Player::Update(float deltaTime, Enemy& enemy, sf::Vector2f& mousePosition)
 {
-    sf::Vector2f position = sprite.getPosition();
+    sf::Vector2f playerPosition = sprite.getPosition();
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        sprite.setPosition(position + sf::Vector2f(1, 0) * playerSpeed * deltaTime);
+        sprite.setPosition(playerPosition + sf::Vector2f(1, 0) * playerSpeed * deltaTime);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        sprite.setPosition(position + sf::Vector2f(-1, 0) * playerSpeed * deltaTime);
+        sprite.setPosition(playerPosition + sf::Vector2f(-1, 0) * playerSpeed * deltaTime);
     }
-    
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
-        sprite.setPosition(position + sf::Vector2f(0, -1) * playerSpeed * deltaTime);
+        sprite.setPosition(playerPosition + sf::Vector2f(0, -1) * playerSpeed * deltaTime);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        sprite.setPosition(position + sf::Vector2f(0, 1) * playerSpeed * deltaTime);
+        sprite.setPosition(playerPosition + sf::Vector2f(0, 1) * playerSpeed * deltaTime);
     }
 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-    {
-        sf::RectangleShape newBullet(sf::RectangleShape(sf::Vector2f(20, 10)));
-        bullets.push_back(newBullet);
+    fireRateTimer += deltaTime;
 
-        int i = bullets.size() - 1;
-        bullets[i].setPosition(sprite.getPosition());
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && fireRateTimer >= fireRate)
+    {
+        projectiles.push_back(Projectile());
+        int i = projectiles.size() - 1;
+        projectiles[i].Initialize(playerPosition, mousePosition, 1.0f);
+
+        fireRateTimer = 0;
     }
 
-    for (size_t i = 0; i < bullets.size(); i++)
+    for (size_t i = 0; i < projectiles.size(); i++)
     {
-        sf::Vector2f bulletDirection = enemy.sprite.getPosition() - bullets[i].getPosition();
-        bulletDirection = Math::NormalizeVector(bulletDirection);
-        bullets[i].setPosition(bullets[i].getPosition() + bulletDirection * bulletSpeed * deltaTime);
+        projectiles[i].Update(deltaTime);
+
+        if (enemy.health > 0)
+        {
+            if (Math::DidRectCollide(projectiles[i].GetGlobalBounds(), enemy.sprite.getGlobalBounds()))
+            {
+                enemy.ReduceHp(damage);
+                projectiles.erase(projectiles.begin() + i);
+            }
+        }
     }
 
-    boundingRectangle.setPosition(position);
+    boundingRectangle.setPosition(playerPosition);
 
-    if (Math::DidRectCollide(sprite.getGlobalBounds(), enemy.sprite.getGlobalBounds()))
+    if (enemy.health > 0)
     {
-        std::cout << "Collision" << std::endl;
+        if (Math::DidRectCollide(sprite.getGlobalBounds(), enemy.sprite.getGlobalBounds()))
+        {
+            std::cout << "Player Collision" << std::endl;
+        }
     }
 }
 
@@ -97,8 +109,8 @@ void Player::Draw(sf::RenderWindow& window)
 
     window.draw(boundingRectangle);
 
-    for (size_t i = 0; i < bullets.size(); i++)
+    for (size_t i = 0; i < projectiles.size(); i++)
     {
-        window.draw(bullets[i]);
+        projectiles[i].Draw(window);
     }
 }

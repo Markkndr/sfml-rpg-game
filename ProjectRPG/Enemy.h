@@ -8,22 +8,22 @@ public:
 	Enemy();
 	~Enemy();
 
+	void ReduceHp(int damage);
 	void Initialize();
 	void Load();
-
 	void Update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
 
 	sf::Sprite sprite;
-
 	sf::Vector2f size;
-
 	sf::Vector2f scale;
+
+	int health;
 
 private:
 
+	sf::Text displayEnemyHp;
+	sf::Font font;
 	sf::Texture texture;
-
 	sf::RectangleShape boundingRectangle;
 };
-

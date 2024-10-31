@@ -5,15 +5,15 @@ class FrameRate
 {
 public:
 
+	FrameRate();
+	~FrameRate();
+
 	void Initialize();
 	void Load();
 
 	void Update(double deltaTime);
 	void Draw(sf::RenderWindow& window);
 	
-	FrameRate();
-	~FrameRate();
-
 private:
 
 	sf::Text displayFrameRate;
@@ -21,4 +21,3 @@ private:
 
 	float timer;
 };
-

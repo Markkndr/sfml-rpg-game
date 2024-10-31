@@ -1,13 +1,21 @@
 #include "Enemy.h"
 #include <iostream>
 
-Enemy::Enemy()
+Enemy::Enemy() :
+    health (100)
 {
 }
 
 Enemy::~Enemy()
 {
 }
+
+void Enemy::ReduceHp(int damage)
+{
+    health -= damage;
+    displayEnemyHp.setString(std::to_string(health));
+}
+
 
 void Enemy::Initialize()
 {
@@ -18,7 +26,19 @@ void Enemy::Initialize()
 
 void Enemy::Load()
 {
-    if (!texture.loadFromFile("Assets/Slime/Texture/Slime.png"))
+    if (!font.loadFromFile("Assets/Fonts/arial.ttf"))
+    {
+        std::cout << "FAILED TO LOAD FONT" << std::endl;
+    }
+    else
+    {
+        std::cout << "Font loaded" << std::endl;
+        displayEnemyHp.setFont(font);
+        displayEnemyHp.setString(std::to_string(health));
+
+    }
+
+    if (!texture.loadFromFile("Assets/Enemies/Texture/Slime.png"))
     {
         std::cout << "FAILED TO LOAD SLIME TEXTURE" << std::endl;
     }
@@ -41,14 +61,22 @@ void Enemy::Load()
 
 void Enemy::Update(float deltaTime)
 {
-    sf::Vector2f position = sprite.getPosition();
-
-    boundingRectangle.setPosition(position);
+    if (health > 0)
+    {
+        sf::Vector2f position = sprite.getPosition();
+        boundingRectangle.setPosition(position);
+        displayEnemyHp.setPosition(position);
+    }
 }
 
 void Enemy::Draw(sf::RenderWindow& window)
 {
-    window.draw(sprite);
+    if (health > 0)
+    {
+        window.draw(sprite);
 
-    window.draw(boundingRectangle);
+        window.draw(boundingRectangle);
+
+        window.draw(displayEnemyHp);
+    }
 }
