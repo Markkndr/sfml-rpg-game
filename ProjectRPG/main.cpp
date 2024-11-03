@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "FrameRate.h"
 #include "Projectile.h"
+#include "Map.h"
 
 int main()
 {
@@ -14,6 +15,9 @@ int main()
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Default, settings);
     window.setVerticalSyncEnabled(true);
+
+    Map map;
+    map.Initialize();
 
     Player player;
     player.Initialize();
@@ -25,6 +29,8 @@ int main()
     fps.Initialize();
 
     //LOAD
+
+    map.Load();
 
     player.Load();
 
@@ -52,6 +58,7 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
+        map.Update(deltaTime);
         player.Update(deltaTime, enemy, mousePosition);
         enemy.Update(deltaTime);
         fps.Update(deltaTime); 
@@ -60,6 +67,7 @@ int main()
         //DRAW
         window.clear(sf::Color::Black);
         
+        map.Draw(window);
         enemy.Draw(window);
         player.Draw(window);
         fps.Draw(window);

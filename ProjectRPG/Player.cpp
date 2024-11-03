@@ -4,7 +4,7 @@
 #include <iostream>
 
 Player::Player() :
-    playerSpeed(1.2f), fireRate(250.0f), fireRateTimer(1.0f), damage(10)
+    playerSpeed(0.5f), fireRate(250.0f), fireRateTimer(1.0f), damage(10)
 {
 }
 
