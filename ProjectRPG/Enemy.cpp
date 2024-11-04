@@ -59,7 +59,7 @@ void Enemy::Load()
     }
 }
 
-void Enemy::Update(float deltaTime)
+void Enemy::Update(double deltaTime)
 {
     if (health > 0)
     {

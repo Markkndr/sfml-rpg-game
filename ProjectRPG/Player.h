@@ -28,6 +28,6 @@ private:
 
 	float playerSpeed;
 	float fireRate;
-	float fireRateTimer;
+	double fireRateTimer;
 	int damage;
 };

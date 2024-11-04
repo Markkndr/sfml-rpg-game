@@ -11,7 +11,7 @@ public:
 	void ReduceHp(int damage);
 	void Initialize();
 	void Load();
-	void Update(float deltaTime);
+	void Update(double deltaTime);
 	void Draw(sf::RenderWindow& window);
 
 	sf::Sprite sprite;
