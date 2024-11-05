@@ -26,7 +26,7 @@ void Enemy::Initialize()
 
 void Enemy::Load()
 {
-    if (!font.loadFromFile("Assets/Fonts/arial.ttf"))
+    if (!font.loadFromFile("Assets/Fonts/manaspc.ttf"))
     {
         std::cout << "FAILED TO LOAD FONT" << std::endl;
     }

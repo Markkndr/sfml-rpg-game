@@ -8,6 +8,7 @@
 #include "FrameRate.h"
 #include "Projectile.h"
 #include "Map.h"
+#include "MapLoader.h"
 
 int main()
 {
@@ -27,6 +28,9 @@ int main()
 
     FrameRate fps;
     fps.Initialize();
+
+    MapLoader mapLoader;
+    mapLoader.Load("assets/world/maps/level1.rmap");
 
     //LOAD
 

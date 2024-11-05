@@ -141,22 +141,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FrameRate.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Math.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="src\MapLoader.cpp" />
+    <ClCompile Include="src\FrameRate.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Map.cpp" />
+    <ClCompile Include="src\Math.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\Projectile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FrameRate.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="Math.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Projectile.h" />
-    <ClInclude Include="Tile.h" />
+    <ClInclude Include="src\MapData.h" />
+    <ClInclude Include="src\MapLoader.h" />
+    <ClInclude Include="src\FrameRate.h" />
+    <ClInclude Include="src\Map.h" />
+    <ClInclude Include="src\Math.h" />
+    <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\Enemy.h" />
+    <ClInclude Include="src\Projectile.h" />
+    <ClInclude Include="src\Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

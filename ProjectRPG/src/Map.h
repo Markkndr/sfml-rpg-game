@@ -22,12 +22,16 @@ public:
 
 private:
 
-	int mapNumbers[6] = {
+	static const int mapSize = 6;
+	int mapWidth;
+	int mapHeight;
+
+	int mapNumbers[mapSize] = {
 		13, 13, 13,
 		14, 14, 14
 	};
 
-	sf::Sprite mapSprites[6];
+	sf::Sprite mapSprites[mapSize];
 	int totalTiles;
 	int tileWidth;
 	int tileHeight;

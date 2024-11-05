@@ -19,7 +19,7 @@ void FrameRate::Initialize()
 
 void FrameRate::Load()
 {
-    if (!font.loadFromFile("Assets/Fonts/arial.ttf"))
+    if (!font.loadFromFile("Assets/Fonts/manaspc.ttf"))
     {
         std::cout << "FAILED TO LOAD FONT" << std::endl;
     }
@@ -40,7 +40,7 @@ void FrameRate::Update(double deltaTime)
         double fps = 1000.0f / deltaTime;
 
         std::string frameRate =
-            std::to_string((int)fps) + "frameTime : " + std::to_string((int)deltaTime);
+            std::to_string((int)fps);
 
         displayFrameRate.setString(frameRate);
 
