@@ -9,6 +9,12 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{5ba65148-6a2a-440f-878e-cfaa9dfea6b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{58d61965-8261-4f72-8e02-c4eebd2a9e48}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -18,55 +24,43 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Player.cpp">
+    <ClCompile Include="src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Enemy.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Entity.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="src\Math.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GameState.cpp">
+      <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="src\FrameRate.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\State.cpp">
+      <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="src\Projectile.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\MainMenuState.cpp">
+      <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="src\Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MapLoader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Button.cpp">
+      <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Player.h">
+    <ClInclude Include="src\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Enemy.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Entity.h">
+      <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="src\Math.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\GameState.h">
+      <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="src\FrameRate.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\State.h">
+      <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="src\Projectile.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\MainMenuState.h">
+      <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="src\Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MapLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MapData.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Button.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
