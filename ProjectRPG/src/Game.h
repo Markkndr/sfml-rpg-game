@@ -4,26 +4,27 @@
 class Game
 {
 private:
-
 	//Variables
 	sf::RenderWindow* window;
 	sf::Event sfEvent;
-	sf::ContextSettings settings;
-	sf::Clock dtClock;
+	sf::Clock dtClock;    
+	sf::ContextSettings windowSettings;
 
 	float dt;
+	bool fullscreen;
 
 	std::stack<State*> states;
+	std::vector<sf::VideoMode> videoModes;
 
 	std::map<std::string, int> supportedKeys;
 
 	//Initialization
+	void initVariables();
 	void initWindow();
 	void initStates();
 	void initKeys();
 
 public:
-
 	Game();
 	~Game();
 

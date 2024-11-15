@@ -12,7 +12,7 @@ Button::Button(float x, float y, float width, float height,
 	this->text.setFont(*this->font);
 	this->text.setString(text);
 	this->text.setFillColor(sf::Color::White);
-	this->text.setCharacterSize(20);
+	this->text.setCharacterSize(25);
 	this->text.setPosition(
 		shape.getPosition().x + shape.getSize().x / 2 - this->text.getLocalBounds().width / 2,
 		shape.getPosition().y + shape.getSize().y / 2 - this->text.getLocalBounds().height / 2

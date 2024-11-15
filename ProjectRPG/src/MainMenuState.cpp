@@ -1,5 +1,6 @@
 #include "MainMenuState.h"
 
+//Initializer functions
 void MainMenuState::initFonts()
 {
 	if (!this->font.loadFromFile("assets/fonts/terminal-grotesque.ttf"))
@@ -8,9 +9,42 @@ void MainMenuState::initFonts()
 	}
 }
 
+void MainMenuState::initButtons()
+{
+	this->buttons["GAME_STATE_BTN"] = new Button(123, 100, 260, 100, &this->font, "Start Game",
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
+
+	this->buttons["SETTINGS_STATE_BTN"] = new Button(123, 250, 260, 100, &this->font, "Settings",
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
+
+	this->buttons["EXIT_STATE_BTN"] = new Button(123, 800, 260, 100, &this->font, "Quit",
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
+}
+
+void MainMenuState::initVariables()
+{
+}
+
+void MainMenuState::initBackground()
+{
+	this->background.setSize(
+		sf::Vector2f
+		(
+			static_cast<float>(this->window->getSize().x), 
+			static_cast<float>(this->window->getSize().y)
+		)
+	);
+
+	if (!this->backgroundTexture.loadFromFile("assets/menu/background.png"))
+	{
+		throw("ERROR:MAINMENUSTATE::FAILED TO LOAD BACKGROUND TEXTURE");
+	}
+	this->background.setTexture(&this->backgroundTexture);
+}
+
 void MainMenuState::initKeybinds()
 {
-	std::ifstream ifs("config/gamestate_keybinds.ini");
+	std::ifstream ifs("config/mainmenustate_keybinds.ini");
 
 	if (ifs.is_open())
 	{
@@ -27,40 +61,64 @@ void MainMenuState::initKeybinds()
 }
 
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys) :
-	State(window, supportedKeys)
+MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states) :
+	State(window, supportedKeys, states)
 {
+	this->initVariables();
+	this->initBackground();
 	this->initFonts();
 	this->initKeybinds();
-
-	this->gamestate_btn = new Button(100, 100, 150 , 50, &this->font, "Start Game",
-		sf::Color(70,70,70,200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
-
-	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
-	this->background.setFillColor(sf::Color::Black);
+	this->initButtons();
 }
 
 MainMenuState::~MainMenuState()
 {
-	delete this->gamestate_btn;
-}
-
-void MainMenuState::endState()
-{
-	std::cout << "Ending game state" << std::endl;
+	auto it = this->buttons.begin();
+	for (it = this->buttons.begin(); it != this->buttons.end(); ++it)
+	{
+		delete it->second;
+	}
 }
 
 void MainMenuState::updateInput(const float& dt)
 {
-	this->checkForQuit();
+}
+
+void MainMenuState::updateButtons()
+{
+	//Updates all the buttons in the state
+	for (auto &it : this->buttons)
+	{
+		it.second->update(this->mousePosView);
+	}
+
+	//Start Game
+	if (this->buttons["GAME_STATE_BTN"]->isPressed())
+	{
+		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+	}
+
+	//Quit game
+	if (this->buttons["EXIT_STATE_BTN"]->isPressed())
+	{
+		this->endState();
+	}
 }
 
 void MainMenuState::update(const float& dt)
 {
 	this->updateMousePosition();
 	this->updateInput(dt);
+	this->updateButtons();
 
-	this->gamestate_btn->update(this->mousePosView);
+}
+
+void MainMenuState::renderButtons(sf::RenderTarget* target)
+{
+	for (auto& it : this->buttons)
+	{
+		it.second->render(target);
+	}
 }
 
 void MainMenuState::render(sf::RenderTarget* target)
@@ -69,6 +127,17 @@ void MainMenuState::render(sf::RenderTarget* target)
 		target = this->window;
 
 	target->draw(this->background);
-	
-	this->gamestate_btn->render(target);
+
+	this->renderButtons(target);
+
+	//REMOVE LATER !!!!!
+	sf::Text mouseText;
+	mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 25 );
+	mouseText.setFont(this->font);
+	mouseText.setCharacterSize(12);
+	std::stringstream ss;
+	ss << this->mousePosView.x << " " << this->mousePosView.y;
+	mouseText.setString(ss.str());
+
+	target->draw(mouseText);
 }
