@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\MovementComponent.cpp" />
+    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\MainMenuState.cpp" />
     <ClCompile Include="src\Entity.cpp" />
@@ -152,6 +154,8 @@
     <ClCompile Include="src\State.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\MovementComponent.h" />
+    <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Button.h" />
     <ClInclude Include="src\MainMenuState.h" />
     <ClInclude Include="src\Entity.h" />
