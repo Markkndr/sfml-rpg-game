@@ -105,6 +105,14 @@ void MainMenuState::updateButtons()
 		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
 	}
 
+	//Settings
+
+	//Editor
+	if (this->buttons["EDITOR_STATE_BTN"]->isPressed())
+	{
+		this->states->push(new EditorState(this->window, this->supportedKeys, this->states));
+	}
+
 	//Quit game
 	if (this->buttons["EXIT_STATE_BTN"]->isPressed())
 	{
@@ -120,7 +128,7 @@ void MainMenuState::update(const float& dt)
 
 }
 
-void MainMenuState::renderButtons(sf::RenderTarget* target)
+void MainMenuState::renderButtons(sf::RenderTarget& target)
 {
 	for (auto& it : this->buttons)
 	{
@@ -135,7 +143,7 @@ void MainMenuState::render(sf::RenderTarget* target)
 
 	target->draw(this->background);
 
-	this->renderButtons(target);
+	this->renderButtons(*target);
 
 	//REMOVE LATER !!!!!
 	sf::Text mouseText;
