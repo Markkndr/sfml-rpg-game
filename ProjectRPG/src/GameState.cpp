@@ -21,7 +21,7 @@ void GameState::initKeybinds()
 
 void GameState::initTextures()
 {
-	if(!this->textures["PLAYER_IDLE"].loadFromFile("assets/player/textures/character.png"))
+	if(!this->textures["PLAYER_SHEET"].loadFromFile("assets/player/textures/player_idol.png"))
 	{
 		throw "ERROR::GAME_STATE::COULD NOT LOAD PLAYER TEXTURE";
 	}
@@ -29,7 +29,7 @@ void GameState::initTextures()
 
 void GameState::initPlayers()
 {
-	this->player = new Player(960, 540, this->textures["PLAYER_IDLE"]);
+	this->player = new Player(960, 540, this->textures["PLAYER_SHEET"]);
 }
 
 //Const and Destr
