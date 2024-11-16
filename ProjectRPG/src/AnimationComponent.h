@@ -56,7 +56,7 @@ private:
 				{
 					this->currentRect.top += this->height;
 				}
-				else
+				else //reset
 				{
 					this->currentRect.top = this->startRect.top;
 				}
@@ -75,6 +75,7 @@ private:
 	std::map<std::string, Animation*> animations;
 	sf::Sprite& sprite;
 	sf::Texture& textureSheet;
+	Animation* lastAnimation;
 
 	//Initializers
 
