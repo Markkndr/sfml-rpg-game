@@ -8,7 +8,7 @@ private:
     //Variables
     sf::Font font;
 
-    std::map<std::string, Button*>buttons;
+    std::map<std::string, GUI::Button*>buttons;
 
     //Functions
     void initVariables();

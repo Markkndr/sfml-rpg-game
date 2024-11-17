@@ -22,6 +22,12 @@
     <Filter Include="Components">
       <UniqueIdentifier>{d96e5093-a055-4fd4-94ca-996860c1f580}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tile">
+      <UniqueIdentifier>{b50af5ae-994e-4582-84c0-3365f7928bb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{ad3f3804-f679-45ed-93f9-f2df618cb9ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -42,9 +48,6 @@
     <ClCompile Include="src\MainMenuState.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="src\Button.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Player.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -59,6 +62,18 @@
     </ClCompile>
     <ClCompile Include="src\HitboxComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tile.cpp">
+      <Filter>Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PauseMenu.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SettingState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Button.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,9 +92,6 @@
     <ClInclude Include="src\MainMenuState.h">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="src\Button.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Player.h">
       <Filter>Entities</Filter>
     </ClInclude>
@@ -94,6 +106,18 @@
     </ClInclude>
     <ClInclude Include="src\HitboxComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tile.h">
+      <Filter>Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PauseMenu.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SettingState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Button.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,7 +14,8 @@ void Game::initWindow()
     this->videoModes = sf::VideoMode::getFullscreenModes();
     std::string title = "None";
     sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
-    bool vertical_sync_enabled = true;
+    bool vertical_sync_enabled = false;
+    int fps_limit = 300;
     bool fullscreen = false;
     int antialiasing_level = 0;
 
@@ -25,6 +26,7 @@ void Game::initWindow()
         ifs >> fullscreen;
         ifs >> vertical_sync_enabled;
         ifs >> antialiasing_level;
+        ifs >> fps_limit;
     }
 
     ifs.close();
@@ -41,6 +43,7 @@ void Game::initWindow()
     }
 
     this->window->setVerticalSyncEnabled(vertical_sync_enabled);
+    this->window->setFramerateLimit(fps_limit);
 }
 
 void Game::initKeys()

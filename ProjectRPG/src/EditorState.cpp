@@ -11,7 +11,7 @@ void EditorState::initFonts()
 
 void EditorState::initButtons()
 {
-	//this->buttons["EXIT_STATE_BTN"] = new Button(123, 1000, 100, 30, &this->font, "Quit", 30,
+	//this->buttons["EXIT_STATE_BTN"] = new GUI::Button(123, 1000, 100, 30, &this->font, "Quit", 30,
 	//	sf::Color(20, 20, 20, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 	//	sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 }

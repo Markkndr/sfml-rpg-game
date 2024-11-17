@@ -1,0 +1,47 @@
+#pragma once
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/Window.hpp>
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <stack>
+#include <map>
+
+#include "Button.h"
+
+class PauseMenu
+{
+private:
+	//Variables
+	sf::Font& font;
+	sf::Text pauseText;
+	
+	sf::RectangleShape background;
+	sf::RectangleShape container;
+
+	std::map<std::string, GUI::Button*> buttons;
+
+	//Initializers
+	void initBackground(sf::RenderWindow& window);
+	void initContainer(sf::RenderWindow& window);
+
+public:
+	PauseMenu(sf::RenderWindow& window, sf::Font& font);
+	virtual ~PauseMenu();
+
+	//Accessor
+	std::map<std::string, GUI::Button*>& getButtons();
+
+	//Functions
+	const bool isButtonPressed(const std::string key);
+	void update(const sf::Vector2f& mousePos);
+	void addButton(const std::string key, float y, const std::string text);
+	void render(sf::RenderTarget& target);
+};

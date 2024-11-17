@@ -12,36 +12,39 @@
 
 enum button_states{BTN_IDLE = 0, BTN_HOWER, BTN_ACTIVE};
 
-class Button
+namespace GUI
 {
-private:
-	short unsigned buttonState;
 
-	sf::RectangleShape shape;
-	sf::Font* font;
-	sf::Text text;
-	
-	sf::Color textIdleColor;
-	sf::Color textHoverColor;
-	sf::Color textActiveColor;
+	class Button
+	{
+	private:
+		short unsigned buttonState;
 
-	sf::Color idleColor;
-	sf::Color hoverColor;
-	sf::Color activeColor;
+		sf::RectangleShape shape;
+		sf::Font* font;
+		sf::Text text;
 
-public:
+		sf::Color textIdleColor;
+		sf::Color textHoverColor;
+		sf::Color textActiveColor;
 
-	Button(float x, float y, float width, float height,
-		sf::Font* font, std::string text, unsigned characte_size,
-		sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
-		sf::Color idle_color, sf::Color hover_color, sf::Color active_color);
-	~Button();
+		sf::Color idleColor;
+		sf::Color hoverColor;
+		sf::Color activeColor;
 
-	//Accessors
-	const bool isPressed() const;
+	public:
 
-	//Functions
-	void update(const sf::Vector2f mousePos);
-	void render(sf::RenderTarget& target);
-	
-};
+		Button(float x, float y, float width, float height,
+			sf::Font* font, std::string text, unsigned characte_size,
+			sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
+			sf::Color idle_color, sf::Color hover_color, sf::Color active_color);
+		~Button();
+
+		//Accessors
+		const bool isPressed() const;
+
+		//Functions
+		void update(const sf::Vector2f& mousePos);
+		void render(sf::RenderTarget& target);
+	};
+}

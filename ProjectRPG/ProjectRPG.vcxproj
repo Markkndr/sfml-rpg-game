@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\SettingState.cpp" />
+    <ClCompile Include="src\PauseMenu.cpp" />
     <ClCompile Include="src\HitboxComponent.cpp" />
     <ClCompile Include="src\EditorState.cpp" />
     <ClCompile Include="src\AnimationComponent.cpp" />
@@ -155,8 +157,11 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\State.cpp" />
+    <ClCompile Include="src\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\SettingState.h" />
+    <ClInclude Include="src\PauseMenu.h" />
     <ClInclude Include="src\HitboxComponent.h" />
     <ClInclude Include="src\EditorState.h" />
     <ClInclude Include="src\AnimationComponent.h" />
@@ -168,6 +173,7 @@
     <ClInclude Include="src\GameState.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\State.h" />
+    <ClInclude Include="src\Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
