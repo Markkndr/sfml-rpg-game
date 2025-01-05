@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "PauseMenu.h"
 
 //Inintializers
@@ -49,7 +50,7 @@ PauseMenu::~PauseMenu()
 	}
 }
 
-std::map<std::string, GUI::Button*>& PauseMenu::getButtons()
+std::map<std::string, gui::Button*>& PauseMenu::getButtons()
 {
 	return this->buttons;
 }
@@ -74,7 +75,7 @@ void PauseMenu::addButton(const std::string key, float y, const std::string text
 	float height = 50;
 	float x = this->container.getPosition().x + this->container.getSize().x / 2.f - this->pauseText.getGlobalBounds().width / 2.f;
 
-	this->buttons[key] = new GUI::Button(x, y, width, height, &this->font, text, 30,
+	this->buttons[key] = new gui::Button(x, y, width, height, &this->font, text, 30,
 		sf::Color(250, 250, 250, 200), sf::Color(100, 100, 100, 200), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 }

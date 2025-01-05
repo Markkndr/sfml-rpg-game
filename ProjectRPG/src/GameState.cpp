@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "GameState.h"
 
 //Initializers
@@ -45,24 +46,32 @@ void GameState::initPauseMenu()
 {
 	this->pmenu = new PauseMenu(*this->window, this->font);
 
-	this->pmenu->addButton("QUIT", 900.f, "Quit");
+	this->pmenu->addButton("EXIT", 900.f, "Exit");
+}
+
+void GameState::initTileMap()
+{
+	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10);
 }
 
 //Const and Destr
-GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states) :
-	State(window, supportedKeys, states)
+GameState::GameState(StateData* state_data) :
+	State(state_data)
 {
 	this->initKeybinds();
 	this->initTextures();
-	this->initPlayers();
 	this->initFonts();
 	this->initPauseMenu();
+
+	this->initPlayers();
+	this->initTileMap();
 }
 
 GameState::~GameState()
 {
 	delete this->pmenu;
 	delete this->player;
+	delete this->tileMap;
 }
 
 //Functions
@@ -97,7 +106,7 @@ void GameState::updateInput(const float& dt)
 
 void GameState::updatePauseMenuButtons()
 {
-	if (this->pmenu->isButtonPressed("QUIT"))
+	if (this->pmenu->isButtonPressed("EXIT"))
 	{
 		this->endState();
 	}
@@ -125,6 +134,8 @@ void GameState::render(sf::RenderTarget* target)
 {
 	if (target)
 		target = this->window;
+
+	this->tileMap->render(*target);
 
 	this->player->render(*target);
 

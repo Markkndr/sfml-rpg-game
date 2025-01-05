@@ -1,6 +1,7 @@
 #pragma once
 #include "State.h"
-#include "Button.h"
+#include "GraphicsSettings.h"
+#include "Gui.h"
 
 class SettingState :
     public State
@@ -11,24 +12,31 @@ private:
     sf::RectangleShape background;
     sf::Font font;
 
-    std::map<std::string, GUI::Button*>buttons;
+    std::map<std::string, gui::Button*>buttons;
+    std::map<std::string, gui::DropDownList*>dropDownLists;
+
+    sf::Text optionsText;
+
+    std::vector<sf::VideoMode> modes;
 
     //Initializers
     void initVariables();
     void initBackground();
     void initKeybinds();
     void initFonts();
-    void initButtons();
+    void initGui();
+    void initText();
+
 public:
-    SettingState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+    SettingState(StateData* state_data);
     virtual ~SettingState();
     //Accessors
 
     //Functions
     void updateInput(const float& dt);
-    void updateButtons();
+    void updateGui(const float& dt);
     void update(const float& dt);
-    void renderButtons(sf::RenderTarget& target);
+    void renderGui(sf::RenderTarget& target);
     void render(sf::RenderTarget* target = NULL);
 };
 

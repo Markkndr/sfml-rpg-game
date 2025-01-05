@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MainMenuState.h"
 
 //Initializer functions
@@ -11,19 +12,19 @@ void MainMenuState::initFonts()
 
 void MainMenuState::initButtons()
 {
-	this->buttons["GAME_STATE_BTN"] = new GUI::Button(123.f, 100.f, 150.f, 50.f, &this->font, "Start Game", 30,
+	this->buttons["GAME_STATE_BTN"] = new gui::Button(123.f, 100.f, 150.f, 50.f, &this->font, "Start Game", 30,
 		sf::Color(20, 20, 20, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["SETTINGS_STATE_BTN"] = new GUI::Button(123.f, 250.f, 125.f, 50.f, &this->font, "Settings", 30,
+	this->buttons["SETTINGS_STATE_BTN"] = new gui::Button(123.f, 250.f, 125.f, 50.f, &this->font, "Settings", 30,
 		sf::Color(20, 20, 20, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["EDITOR_STATE_BTN"] = new GUI::Button(123.f, 400.f, 120.f, 50.f, &this->font, "Editor", 30,
+	this->buttons["EDITOR_STATE_BTN"] = new gui::Button(123.f, 400.f, 120.f, 50.f, &this->font, "Editor", 30,
 		sf::Color(20, 20, 20, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["EXIT_STATE_BTN"] = new GUI::Button(123.f, 1000.f, 100.f, 30.f, &this->font, "Quit", 30,
+	this->buttons["EXIT_STATE_BTN"] = new gui::Button(130.f, 550.f, 100.f, 30.f, &this->font, "Quit", 30,
 		sf::Color(20, 20, 20, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 }
@@ -68,8 +69,8 @@ void MainMenuState::initKeybinds()
 }
 
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states) :
-	State(window, supportedKeys, states)
+MainMenuState::MainMenuState(StateData* state_data) :
+	State(state_data)
 {
 	this->initVariables();
 	this->initBackground();
@@ -102,19 +103,19 @@ void MainMenuState::updateButtons()
 	//Start Game
 	if (this->buttons["GAME_STATE_BTN"]->isPressed())
 	{
-		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+		this->states->push(new GameState(this->stateData));
 	}
 
 	//Settings
 	if (this->buttons["SETTINGS_STATE_BTN"]->isPressed())
 	{
-		this->states->push(new SettingState(this->window, this->supportedKeys, this->states));
+		this->states->push(new SettingState(this->stateData));
 	}
 
 	//Editor
 	if (this->buttons["EDITOR_STATE_BTN"]->isPressed())
 	{
-		this->states->push(new EditorState(this->window, this->supportedKeys, this->states));
+		this->states->push(new EditorState(this->stateData));
 	}
 
 	//Quit game

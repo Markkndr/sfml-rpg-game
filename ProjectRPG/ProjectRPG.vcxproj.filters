@@ -28,6 +28,12 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{ad3f3804-f679-45ed-93f9-f2df618cb9ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{3f0a5078-6dc6-4db3-b50f-0b4e04c6c1e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{8a870b07-d8c6-44c8-8fb0-2defab51dad9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -66,14 +72,23 @@
     <ClCompile Include="src\Tile.cpp">
       <Filter>Tile</Filter>
     </ClCompile>
-    <ClCompile Include="src\PauseMenu.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="src\SettingState.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="src\Button.cpp">
+    <ClCompile Include="src\PauseMenu.cpp">
       <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gui.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileMap.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stdafx.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GraphicsSettings.cpp">
+      <Filter>Settings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,14 +125,23 @@
     <ClInclude Include="src\Tile.h">
       <Filter>Tile</Filter>
     </ClInclude>
-    <ClInclude Include="src\PauseMenu.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="src\SettingState.h">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="src\Button.h">
+    <ClInclude Include="src\PauseMenu.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gui.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TileMap.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicsSettings.h">
+      <Filter>Settings</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

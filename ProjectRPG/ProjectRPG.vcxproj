@@ -117,6 +117,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC;%(PreprocessorDefinitions);SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalUsingDirectories>C:\Projects\ProjectRPG\ProjectRPG\src\states;C:\Projects\ProjectRPG\ProjectRPG\src\entities;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +134,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC;%(PreprocessorDefinitions);SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalUsingDirectories>C:\Projects\ProjectRPG\ProjectRPG\src\states;C:\Projects\ProjectRPG\ProjectRPG\src\entities;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GraphicsSettings.cpp" />
     <ClCompile Include="src\SettingState.cpp" />
     <ClCompile Include="src\PauseMenu.cpp" />
     <ClCompile Include="src\HitboxComponent.cpp" />
@@ -150,7 +153,7 @@
     <ClCompile Include="src\AnimationComponent.cpp" />
     <ClCompile Include="src\MovementComponent.cpp" />
     <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\Button.cpp" />
+    <ClCompile Include="src\Gui.cpp" />
     <ClCompile Include="src\MainMenuState.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\GameState.cpp" />
@@ -158,8 +161,14 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\Tile.cpp" />
+    <ClCompile Include="src\TileMap.cpp" />
+    <ClCompile Include="src\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GraphicsSettings.h" />
     <ClInclude Include="src\SettingState.h" />
     <ClInclude Include="src\PauseMenu.h" />
     <ClInclude Include="src\HitboxComponent.h" />
@@ -167,13 +176,15 @@
     <ClInclude Include="src\AnimationComponent.h" />
     <ClInclude Include="src\MovementComponent.h" />
     <ClInclude Include="src\Player.h" />
-    <ClInclude Include="src\Button.h" />
+    <ClInclude Include="src\Gui.h" />
     <ClInclude Include="src\MainMenuState.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\GameState.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\Tile.h" />
+    <ClInclude Include="src\TileMap.h" />
+    <ClInclude Include="src\stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
