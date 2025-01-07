@@ -78,9 +78,6 @@
     <ClCompile Include="src\PauseMenu.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Gui.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\TileMap.cpp">
       <Filter>Map</Filter>
     </ClCompile>
@@ -89,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="src\GraphicsSettings.cpp">
       <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gui.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +131,6 @@
     <ClInclude Include="src\PauseMenu.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Gui.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\TileMap.h">
       <Filter>Map</Filter>
     </ClInclude>
@@ -142,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="src\GraphicsSettings.h">
       <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gui.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

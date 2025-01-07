@@ -1,5 +1,7 @@
 #pragma once
 
+enum TileTypes {DEFAULT = 0, DAMAGING};
+
 class Tile
 {
 private:
@@ -8,13 +10,21 @@ private:
 	//Initializers
 
 protected:
+	short type;
+	bool collision;
+
 	sf::RectangleShape shape;
 
 public:
-	Tile(float x, float y, float gridSizeF, const sf::Texture& texture, const sf::IntRect& texture_rect);
+
+	Tile();
+	Tile(unsigned grid_x, unsigned grid_y, float gridSizeF, const sf::Texture& texture, const sf::IntRect& texture_rect,
+		bool collision, short type);
 	virtual ~Tile();
 
 	//Functions
+	const std::string getAsString() const;
+
 	void update();
 	void render(sf::RenderTarget& target);
 };

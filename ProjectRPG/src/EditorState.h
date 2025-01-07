@@ -17,13 +17,18 @@ private:
     //Variables
     PauseMenu* pmenu;
     sf::Font font;
+    sf::Text cursorText;
 
     std::map<std::string, gui::Button*>buttons;
 
     TileMap* tileMap;
+    
+    sf::RectangleShape sidebar;
 
     sf::RectangleShape selectorRect;
     sf::IntRect textureRect;
+
+    gui::TextureSelector* textureSelector;
 
     //Functions
     void initVariables();
@@ -31,6 +36,7 @@ private:
     void initKeybinds();
     void initPauseMenu();
     void initFonts();
+    void initText();
     void initButtons();
     void initGui();
     void initTileMap();
@@ -43,7 +49,7 @@ public:
     void updateInput(const float& dt);
     void updateEditorImput(const float& dt);
     void updateButtons();
-    void updateGui();
+    void updateGui(const float& dt);
     void updatePauseMenuButtons();
     void update(const float& dt);
     void renderButtons(sf::RenderTarget& target);

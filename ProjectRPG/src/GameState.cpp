@@ -51,7 +51,7 @@ void GameState::initPauseMenu()
 
 void GameState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10);
+	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "assets/world/textures/tilesheet2.png");
 }
 
 //Const and Destr
