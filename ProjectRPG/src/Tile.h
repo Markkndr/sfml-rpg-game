@@ -22,9 +22,12 @@ public:
 		bool collision, short type);
 	virtual ~Tile();
 
-	//Functions
+	//Accessors
+	const sf::Vector2f& getPosition() const;
+	const bool& getCollision() const;
 	const std::string getAsString() const;
 
+	//Functions
 	void update();
 	void render(sf::RenderTarget& target);
 };

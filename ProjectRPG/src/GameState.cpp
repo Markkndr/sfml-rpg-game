@@ -2,6 +2,35 @@
 #include "GameState.h"
 
 //Initializers
+void GameState::initDeferredRender()
+{
+	this->renderTexture.create(
+		this->stateData->gfxSettings->resolution.width,
+		this->stateData->gfxSettings->resolution.height
+	);
+
+	this->renderSprite.setTexture(this->renderTexture.getTexture());
+	this->renderSprite.setTextureRect(sf::IntRect(
+		0,
+		0,
+		this->stateData->gfxSettings->resolution.width,
+		this->stateData->gfxSettings->resolution.height)
+	);
+}
+
+void GameState::initView()
+{
+	this->view.setSize(sf::Vector2f(
+		this->stateData->gfxSettings->resolution.width,
+		this->stateData->gfxSettings->resolution.height)
+	);
+
+	this->view.setCenter(sf::Vector2f(
+		this->stateData->gfxSettings->resolution.width / 2.f,
+		this->stateData->gfxSettings->resolution.height / 2.f)
+	);
+}
+
 void GameState::initKeybinds()
 {
 	std::ifstream ifs("config/gamestate_keybinds.ini");
@@ -51,13 +80,17 @@ void GameState::initPauseMenu()
 
 void GameState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "assets/world/textures/tilesheet2.png");
+	this->tileMap = new TileMap(this->stateData->gridSize, 20, 20, "assets/world/textures/tilesheet2.png");
+	this->tileMap->loadFromFile("config/test.map");
 }
 
 //Const and Destr
 GameState::GameState(StateData* state_data) :
 	State(state_data)
 {
+	this->initDeferredRender();
+	this->initView();
+
 	this->initKeybinds();
 	this->initTextures();
 	this->initFonts();
@@ -75,9 +108,13 @@ GameState::~GameState()
 }
 
 //Functions
+void GameState::updateView(const float& dt)
+{
+	this->view.setCenter(std::floor(this->player->getPosition().x), std::floor(this->player->getPosition().y));
+}
+
 void GameState::updatePlayerInput(const float& dt)
 {
-
 	//Update player input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key (this->keybinds.at("MOVE_UP"))))
 		this->player->move(0.f, -1.f, dt);
@@ -112,20 +149,29 @@ void GameState::updatePauseMenuButtons()
 	}
 }
 
+void GameState::updateTileMap(const float& dt)
+{
+	this->tileMap->update();
+	this->tileMap->updateCollision(this->player);
+}
+
 void GameState::update(const float& dt)
 {
-	this->updateMousePosition();
+	this->updateMousePosition(&this->view);
 	this->updateKeyTime(dt);
 	this->updateInput(dt);
 
 	if (!this->paused) //Unpaused
 	{
+		this->updateView(dt);
 		this->updatePlayerInput(dt);
-		this->player->update(dt); 
+		this->player->update(dt);
+
+		this->updateTileMap(dt);
 	}
 	else //Paused
 	{
-		this->pmenu->update(this->mousePosView);
+		this->pmenu->update(this->mousePosWindow);
 		this->updatePauseMenuButtons();
 	}
 }
@@ -135,21 +181,21 @@ void GameState::render(sf::RenderTarget* target)
 	if (target)
 		target = this->window;
 
-	this->tileMap->render(*target);
+	this->renderTexture.clear();
 
-	this->player->render(*target);
+	this->renderTexture.setView(this->view);
+	this->tileMap->render(this->renderTexture);
+
+	this->player->render(this->renderTexture);
 
 	if (this->paused)//Pause menu render
 	{
-		this->pmenu->render(*target);
+		target->setView(this->renderTexture.getDefaultView());
+		this->pmenu->render(this->renderTexture);
 	}
-	sf::Text mouseText;
-	mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 25);
-	mouseText.setFont(this->font);
-	mouseText.setCharacterSize(12);
-	std::stringstream ss;
-	ss << this->mousePosView.x << " " << this->mousePosView.y;
-	mouseText.setString(ss.str());
-	target->draw(mouseText);
 
+	//Final render
+	this->renderTexture.display();
+	this->renderSprite.setTexture(this->renderTexture.getTexture());
+	target->draw(this->renderSprite);
 }

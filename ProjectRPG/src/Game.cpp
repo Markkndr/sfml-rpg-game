@@ -119,7 +119,7 @@ void Game::Update()
 {
     this->UpdateSFMLEvents();
 
-    if (!this->states.empty())
+    if (!this->states.empty() /* && this->window->hasFocus()*/)
     {
         this->states.top()->update(this->dt);
 
@@ -143,7 +143,9 @@ void Game::Render()
     this->window->clear();
 
     if (!this->states.empty())
+    {
         this->states.top()->render(this->window);
+    }
 
     this->window->display();
 }

@@ -18,6 +18,7 @@ private:
     PauseMenu* pmenu;
     sf::Font font;
     sf::Text cursorText;
+    sf::View view;
 
     std::map<std::string, gui::Button*>buttons;
 
@@ -30,8 +31,15 @@ private:
 
     gui::TextureSelector* textureSelector;
 
+    sf::RectangleShape collisionBox;
+
+    bool collision;
+    short type;
+    float cameraSpeed;
+
     //Functions
     void initVariables();
+    void initView();
     void initBackground();
     void initKeybinds();
     void initPauseMenu();
