@@ -25,13 +25,13 @@ void SettingState::initGui()
 		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
 	}
 
-	this->dropDownLists["RESOLUTION"] = new gui::DropDownList(100.f, 100.f, 200.f, 50.f, font, modes_str.data(), modes_str.size(), 0);
+	this->dropDownLists["RESOLUTION"] = new gui::DropDownList(100.f, 100.f, 200.f, 50.f, font, modes_str.data(), static_cast<unsigned int>(modes_str.size()), 0);
 }
 
 void SettingState::initText()
 {
 	this->optionsText.setFont(this->font);
-	this->optionsText.setPosition(sf::Vector2f(100.f, 100.f));
+	this->optionsText.setPosition(sf::Vector2f(1000.f, 300.f));
 	this->optionsText.setCharacterSize(30);
 	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
 

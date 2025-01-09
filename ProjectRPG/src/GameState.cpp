@@ -21,13 +21,13 @@ void GameState::initDeferredRender()
 void GameState::initView()
 {
 	this->view.setSize(sf::Vector2f(
-		this->stateData->gfxSettings->resolution.width,
-		this->stateData->gfxSettings->resolution.height)
+		static_cast<float>(this->stateData->gfxSettings->resolution.width),
+		static_cast<float>(this->stateData->gfxSettings->resolution.height))
 	);
 
 	this->view.setCenter(sf::Vector2f(
-		this->stateData->gfxSettings->resolution.width / 2.f,
-		this->stateData->gfxSettings->resolution.height / 2.f)
+		static_cast<float>(this->stateData->gfxSettings->resolution.width) / 2.f,
+		static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f)
 	);
 }
 
@@ -80,7 +80,7 @@ void GameState::initPauseMenu()
 
 void GameState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 20, 20, "assets/world/textures/tilesheet2.png");
+	this->tileMap = new TileMap(this->stateData->gridSize, 1000, 1000, "assets/world/textures/tilesheet2.png");
 	this->tileMap->loadFromFile("config/test.map");
 }
 
@@ -152,7 +152,7 @@ void GameState::updatePauseMenuButtons()
 void GameState::updateTileMap(const float& dt)
 {
 	this->tileMap->update();
-	this->tileMap->updateCollision(this->player);
+	this->tileMap->updateCollision(this->player, dt); 
 }
 
 void GameState::update(const float& dt)
@@ -165,6 +165,7 @@ void GameState::update(const float& dt)
 	{
 		this->updateView(dt);
 		this->updatePlayerInput(dt);
+
 		this->player->update(dt);
 
 		this->updateTileMap(dt);
@@ -184,13 +185,15 @@ void GameState::render(sf::RenderTarget* target)
 	this->renderTexture.clear();
 
 	this->renderTexture.setView(this->view);
-	this->tileMap->render(this->renderTexture);
+	this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
 
 	this->player->render(this->renderTexture);
 
+	this->tileMap->renderDeferred(this->renderTexture);
+
 	if (this->paused)//Pause menu render
 	{
-		target->setView(this->renderTexture.getDefaultView());
+		this->renderTexture.setView(this->renderTexture.getDefaultView());
 		this->pmenu->render(this->renderTexture);
 	}
 
