@@ -63,6 +63,11 @@ void GameState::initPlayers()
 
 }
 
+void GameState::initPlayerGUI()
+{
+	this->playerGUI = new PlayerGUI(this->player);
+}
+
 void GameState::initFonts()
 {
 	if (!this->font.loadFromFile("assets/fonts/terminal-grotesque.ttf"))
@@ -80,7 +85,7 @@ void GameState::initPauseMenu()
 
 void GameState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 1000, 1000, "assets/world/textures/tilesheet2.png");
+	this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "assets/world/textures/tilesheet2.png");
 	this->tileMap->loadFromFile("config/test.map");
 }
 
@@ -97,6 +102,7 @@ GameState::GameState(StateData* state_data) :
 	this->initPauseMenu();
 
 	this->initPlayers();
+	this->initPlayerGUI();
 	this->initTileMap();
 }
 
@@ -104,6 +110,7 @@ GameState::~GameState()
 {
 	delete this->pmenu;
 	delete this->player;
+	delete this->playerGUI;
 	delete this->tileMap;
 }
 
@@ -124,6 +131,11 @@ void GameState::updatePlayerInput(const float& dt)
 		this->player->move(0.f, 1.f, dt);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
 		this->player->move(1.f, 0.f, dt);
+}
+
+void GameState::updatePlayerGUI(const float& dt)
+{
+	this->playerGUI->update(dt);
 }
 
 void GameState::updateInput(const float& dt)
@@ -165,6 +177,7 @@ void GameState::update(const float& dt)
 	{
 		this->updateView(dt);
 		this->updatePlayerInput(dt);
+		this->updatePlayerGUI(dt);
 
 		this->player->update(dt);
 
@@ -191,9 +204,12 @@ void GameState::render(sf::RenderTarget* target)
 
 	this->tileMap->renderDeferred(this->renderTexture);
 
+	//RenderGUI
+	this->renderTexture.setView(this->renderTexture.getDefaultView());
+	this->playerGUI->render(this->renderTexture);
+
 	if (this->paused)//Pause menu render
 	{
-		this->renderTexture.setView(this->renderTexture.getDefaultView());
 		this->pmenu->render(this->renderTexture);
 	}
 

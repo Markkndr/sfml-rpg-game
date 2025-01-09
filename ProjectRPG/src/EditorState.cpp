@@ -46,7 +46,7 @@ void EditorState::initGui()
 
 void EditorState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 1000, 1000, "assets/world/textures/tilesheet2.png");
+	this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "assets/world/textures/tilesheet2.png");
 }
 
 void EditorState::initVariables()
@@ -54,7 +54,7 @@ void EditorState::initVariables()
 	this->collision = false;
 	this->type = TileTypes::DEFAULT;
 	this->cameraSpeed = 300.f;
-	this->layer = 0.f;
+	this->layer = 0;
 
 	this->textureRect = sf::IntRect(
 		1 * static_cast<int>(this->stateData->gridSize),

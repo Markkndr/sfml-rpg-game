@@ -93,6 +93,12 @@
     <ClCompile Include="src\Gui.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\AttributeComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlayerGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h">
@@ -144,6 +150,12 @@
       <Filter>Settings</Filter>
     </ClInclude>
     <ClInclude Include="src\Gui.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AttributeComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerGUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
