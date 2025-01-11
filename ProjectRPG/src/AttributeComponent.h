@@ -34,7 +34,9 @@ public:
 
 	//Functions
 	std::string debugPrint() const;
-
+	
+	void loseHp(const int hp);
+	void gainHp(const int hp);
 	void gainExp(const int exp);
 
 	void updateStats(const bool reset);

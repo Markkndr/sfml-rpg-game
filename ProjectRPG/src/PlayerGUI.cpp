@@ -60,7 +60,7 @@ void PlayerGUI::initExpBar(Player* player, sf::Font& font)
 
 	this->expBarInner.setSize(sf::Vector2f(width, height));
 	this->expBarInner.setPosition(this->expBarBack.getPosition());
-	this->expBarInner.setFillColor(sf::Color(245, 245, 169, 255));
+	this->expBarInner.setFillColor(sf::Color(143, 0, 255, 255));
 
 	this->expText.setFont(font);
 	this->expText.setCharacterSize(gui::calcCharSize(this->vm, 200));
@@ -68,7 +68,7 @@ void PlayerGUI::initExpBar(Player* player, sf::Font& font)
 		this->expBarInner.getPosition().x + gui::p2pX(0.26f, this->vm), 
 		this->expBarInner.getPosition().y + gui::p2pY(0.37f, this->vm)
 	);
-	this->expText.setFillColor(sf::Color::Black);
+	this->expText.setFillColor(sf::Color::White);
 }
 
 void PlayerGUI::initLevelBox(Player* player, sf::Font& font)

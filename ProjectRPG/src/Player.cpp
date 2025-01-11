@@ -26,7 +26,12 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 
 	this->animationComponent->addAnimation("PLAYER_IDLE", 11.5f, 0, 0, 0, 5, 64, 64);
 	this->animationComponent->addAnimation("PLAYER_RUN", 9.f, 1, 0, 1, 5, 64, 64);
-	this->animationComponent->addAnimation("PLAYER_ATTACK", 12.f, 1, 0, 1, 7, 128, 64);
+	this->animationComponent->addAnimation("PLAYER_ATTACK", 12.f, 2, 0, 2, 7, 64, 64);
+
+	this->spellHitbox.setRadius(50.f);
+	this->spellHitbox.setFillColor(sf::Color::Transparent);
+	this->spellHitbox.setOutlineThickness(1.f);
+	this->spellHitbox.setOutlineColor(sf::Color::Green);
 }
 
 Player::~Player()
@@ -38,23 +43,20 @@ AttributeComponent* Player::getAttributeComponent()
 	return this->attributeComponent;
 }
 
+bool Player::getAttacking()
+{
+	return this->attacking;
+}
+
 //Functions
 void Player::loseHp(const int hp)
 {
-	this->attributeComponent->hp -= hp;
-	if (this->attributeComponent->hp < 0)
-	{
-		this->attributeComponent->hp = 0;
-	}
+	this->attributeComponent->loseHp(hp);
 }
 
 void Player::gainHp(const int hp)
 {
-	this->attributeComponent->hp += hp;
-	if (this->attributeComponent->hp > this->attributeComponent->maxHp)
-	{
-		this->attributeComponent->hp = this->attributeComponent->maxHp; 
-	}
+	this->attributeComponent->gainHp(hp);
 }
 
 void Player::gainExp(const int exp)
@@ -62,11 +64,16 @@ void Player::gainExp(const int exp)
 	this->attributeComponent->gainExp(exp);
 }
 
-void Player::updateAttack()
+void Player::updateAttack(const float& dt, sf::Vector2f& mousePosView)
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && dt)
 	{
 		this->attacking = true;
+
+		this->spellHitbox.setPosition(
+			mousePosView.x - spellHitbox.getRadius(),
+			mousePosView.y - spellHitbox.getRadius()
+		);
 	}
 }
 
@@ -77,12 +84,12 @@ void Player::updateAnimation(const float& dt)
 		//set origin depending on direction
 		if (this->sprite.getScale().x > 0.f) // left
 		{
-			this->sprite.setOrigin(64, 0);
+			this->sprite.setOrigin(8, 0);
 
 		}
 		else //right
 		{
-			this->sprite.setOrigin(48+64, 0);
+			this->sprite.setOrigin(48+8, 0);
 		}
 		//animate and check for anim end
 		if (this->animationComponent->play("PLAYER_ATTACK", dt, true))
@@ -134,14 +141,14 @@ void Player::updateAnimation(const float& dt)
 	}
 }
 
-void Player::update(const float& dt)
+void Player::update(const float& dt, sf::Vector2f& mousePosView)
 {
 	this->movementComponent->update(dt);
 	this->attributeComponent->update();
 	//system("cls");
 	//std::cout << this->attributeComponent->debugPrint() << std::endl;
 
-	this->updateAttack();
+	this->updateAttack(dt, mousePosView);
 	this->updateAnimation(dt);
 
 	this->hitboxComponent->update();
@@ -149,7 +156,24 @@ void Player::update(const float& dt)
 
 void Player::render(sf::RenderTarget& target, sf::Shader* shader, const bool show_hitbox)
 {
+	if (shader)
+	{
+		shader->setUniform("hasTexture", true);
+		shader->setUniform("lightPos", this->getCenter());
 		target.draw(this->sprite, shader);
+		if (this->attacking)
+		{
+			shader->setUniform("hasTexture", true);
+			shader->setUniform("lightPos", this->getCenter());
+			target.draw(this->spellHitbox, shader);
+		}
+	}
+	else
+	{
+		target.draw(this->spellHitbox);
+		target.draw(this->sprite);
+	}
+
 
 	if (show_hitbox)
 	{

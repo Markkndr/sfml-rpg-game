@@ -34,6 +34,24 @@ std::string AttributeComponent::debugPrint() const
 	return ss.str();
 }
 
+void AttributeComponent::loseHp(const int hp)
+{
+	this->hp -= hp; 
+	if (this->hp < 0) 
+	{
+		this->hp = 0; 
+	}
+}
+
+void AttributeComponent::gainHp(const int hp)
+{ 
+	this->hp += hp; 
+	if (this->hp > this->maxHp) 
+	{
+		this->hp = this->maxHp; 
+	}
+}
+
 void AttributeComponent::gainExp(const int exp)
 {
 	this->expCurrent += exp;

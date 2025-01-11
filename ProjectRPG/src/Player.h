@@ -10,6 +10,7 @@ class Player :
 private:
     //Variables
     bool attacking;
+    sf::CircleShape spellHitbox;
     
     //Initializer
     void initVariables();
@@ -21,14 +22,15 @@ public:
 
     //Accessors
     AttributeComponent* getAttributeComponent();
+    bool getAttacking();
 
     //Functions
     void loseHp(const int hp);
     void gainHp(const int hp);
     void gainExp(const int exp);
-    void updateAttack();
+    void updateAttack(const float& dt, sf::Vector2f& mousePosView);
     void updateAnimation(const float& dt);
-    virtual void update(const float& dt);
+    virtual void update(const float& dt, sf::Vector2f& mousePosView);
     void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const bool show_hitbox = false);
 };
 

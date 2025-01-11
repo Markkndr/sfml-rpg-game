@@ -375,7 +375,11 @@ void TileMap::update()
 {
 }
 
-void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition, const bool show_collision)
+void TileMap::render(
+	sf::RenderTarget& target,
+	const sf::Vector2i& gridPosition,
+	sf::Shader* shader, sf::Vector2f player_pos,
+	const bool show_collision)
 {
 	this->layer = 0;
 
@@ -431,7 +435,14 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition,
 				}
 				else
 				{
-					this->map[x][y][this->layer][k]->render(target);
+					if (shader)
+					{
+						this->map[x][y][this->layer][k]->render(target, shader, player_pos);
+					}
+					else
+					{
+						this->map[x][y][this->layer][k]->render(target);
+					}
 				}
 
 				if (show_collision)
@@ -447,11 +458,18 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition,
 	}
 }
 
-void TileMap::renderDeferred(sf::RenderTarget& target)
+void TileMap::renderDeferred(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f player_pos)
 {
 	while (!this->deferredRenderStack.empty())
 	{
-		deferredRenderStack.top()->render(target);
+		if (shader)
+		{
+			deferredRenderStack.top()->render(target, shader, player_pos);
+		}
+		else
+		{
+			deferredRenderStack.top()->render(target);
+		}
 		deferredRenderStack.pop();
 	}
 }

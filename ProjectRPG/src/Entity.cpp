@@ -7,6 +7,7 @@ void Entity::initVariables()
 	this->texture = NULL;
 	this->movementComponent = NULL;
 	this->animationComponent = NULL;
+	this->attributeComponent = NULL;
 	this->scale = 2;
 }
 
@@ -61,6 +62,24 @@ const sf::Vector2f& Entity::getPosition() const
 	}
 
 	return this->sprite.getPosition();
+}
+
+const sf::Vector2f Entity::getCenter() const
+{
+	if (this->hitboxComponent)
+	{
+		return this->hitboxComponent->getPosition() + 
+			sf::Vector2f(
+				this->hitboxComponent->getGlobalBounds().width / 2.f,
+				this->hitboxComponent->getGlobalBounds().height / 2.f
+			);
+	}
+
+	return this->sprite.getPosition() +
+		sf::Vector2f(
+			this->sprite.getGlobalBounds().width / 2.f,
+			this->sprite.getGlobalBounds().height / 2.f
+		);;
 }
 
 const sf::Vector2i Entity::getGridPosition(const int gridSizeI) const

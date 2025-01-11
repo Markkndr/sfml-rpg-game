@@ -1,5 +1,4 @@
-//vertex_shader.vert
-out vec4 vert_pos;
+varying out vec4 vert_pos;
 
 void main()
 {

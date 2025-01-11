@@ -1,5 +1,4 @@
-//fragment_shader.frag
- in vec4 vert_pos;
+in vec4 vert_pos;
 
 uniform sampler2D texture;
 uniform bool hasTexture;
@@ -9,7 +8,7 @@ vec2 light;
 void main()
 {
 	//Ambient light
-	vec4 ambient = vec4(0.02, 0.02, 0.5, 1);
+	vec4 ambient = vec4(0.02, 0.02, 0.02, 0.8);
 	
 	//Convert light to view coords
 	light = (gl_ModelViewProjectionMatrix * vec4(lightPos, 0, 1)).xy;
@@ -19,7 +18,7 @@ void main()
 	lightToFrag.y = lightToFrag.y / 1.7;
 
 	//Length of the vector (distance)
-	float vecLength = clamp(length(lightToFrag) * 2, 0, 1);
+	float vecLength = clamp(length(lightToFrag) * 1, 0, 1);
 
     // lookup the pixel in the texture
     vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);

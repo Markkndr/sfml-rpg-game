@@ -13,7 +13,7 @@ protected:
 	short type;
 	bool collision;
 
-	sf::RectangleShape shape;
+	sf::Sprite shape;
 
 public:
 
@@ -32,6 +32,6 @@ public:
 	const bool intersects(const sf::FloatRect bounds) const;
 	sf::FloatRect getGlobalBounds() const;
 	void update();
-	void render(sf::RenderTarget& target);
+	void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const sf::Vector2f player_pos = sf::Vector2f());
 };
 

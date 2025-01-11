@@ -54,7 +54,7 @@ public:
 
 	//Accessors
 	const bool& getQuit() const;
-	const bool& getKeyTime();
+	const bool getKeyTime();
 
 	//Functions
 	void endState();

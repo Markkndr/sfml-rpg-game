@@ -10,7 +10,7 @@ State::State(StateData* state_data)
 	this->quit = false;
 	this->paused = false;
 	this->keyTime = 0.f;
-	this->keyTimeMax = 1.f;
+	this->keyTimeMax = 1.5f;
 	this->gridSize = state_data->gridSize;
 }
 
@@ -25,7 +25,7 @@ const bool& State::getQuit() const
 	return this->quit;
 }
 
-const bool& State::getKeyTime()
+const bool State::getKeyTime()
 {
 	if (this->keyTime >= this->keyTimeMax)
 	{
