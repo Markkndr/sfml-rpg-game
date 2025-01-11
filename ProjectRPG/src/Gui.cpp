@@ -1,6 +1,53 @@
 #include "stdafx.h"
 #include "Gui.h"
 
+
+
+const float gui::p2pX(const float perc, const sf::VideoMode& vm)
+{
+	/*
+	* converts a percentage value to pixels relative to the current resolution in the x axis
+	*
+	* @param        float perc             the percentage value
+	* @param        sf::VideoMode& vm      the current videomode of window (resolution)
+	*
+	* @return       float                  the calculated value
+	*
+	*/
+
+	return std::floor(static_cast<float>(vm.width) * (perc / 100.f));
+}
+
+const float gui::p2pY(const float perc, const sf::VideoMode& vm)
+{
+	/*
+	* converts a percentage value to pixels relative to the current resolution in the y axis
+	*
+	* @param        float perc             the percentage value
+	* @param        sf::VideoMode& vm      the current videomode of window (resolution)
+	* 
+	* @return       float                  the calculated value
+	*
+	*/
+
+	return std::floor(static_cast<float>(vm.height) * (perc / 100.f));
+}
+
+const unsigned gui::calcCharSize(const sf::VideoMode& vm, const unsigned modifier)
+{
+	/*
+	* Calculates the character size for text using the current resolution and a constant
+	*
+	* @param        sf::VideoMode& vm      the current videomode of window (resolution)
+	* @param        unsigned modifier      used to modify the size (bigger number == smaller size)
+	* 
+	* @return       float				   the calculated character size
+	*
+	*/
+
+	return static_cast<unsigned>((vm.width + vm.height) / modifier);
+}
+
 gui::Button::Button(float x, float y, float width, float height,
 	sf::Font* font, std::string text, unsigned characte_size,
 	sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
@@ -127,14 +174,14 @@ void gui::Button::render(sf::RenderTarget& target)
 //DROP DOWN LIST ==================================================================================================
 
 //Const and Destr
-gui::DropDownList::DropDownList(float x, float y, float width, float height, sf::Font& font, std::string list[], unsigned nrOfElements, unsigned default_index)
+gui::DropDownList::DropDownList(float x, float y, float width, float height, unsigned int text_size, sf::Font& font, std::string list[], unsigned nrOfElements, unsigned default_index)
 	:  font(font), showList(false), keytimeMax(1.f), keytime(0.f)
 {
 
 	//unsigned nrOfElements = sizeof(list) / sizeof(std::string);
 	this->activeElement = new gui::Button(
 		x, y, width, height, 
-		&this->font, list[default_index], 27,
+		&this->font, list[default_index], text_size,
 		sf::Color(20, 20, 20, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
@@ -145,7 +192,7 @@ gui::DropDownList::DropDownList(float x, float y, float width, float height, sf:
 		this->list.push_back(
 			new gui::Button(
 				x, y + ((i+1) * height), width, height,
-				&this->font, list[i], 27,
+				&this->font, list[i], text_size,
 				sf::Color(20, 20, 20, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 				sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0),
 				sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0),
@@ -250,7 +297,7 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
 	this->gridSize = grid_size;
 	this->active = false;
 	this->hidden = false;
-	float offset = 100.f;
+	float offset = grid_size;
 
 	this->bounds.setSize(sf::Vector2f(width, height));
 	this->bounds.setPosition(x + offset, y);

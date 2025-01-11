@@ -23,6 +23,8 @@ private:
 	sf::Font font;
 	PauseMenu* pmenu;
 
+	sf::Shader core_shader;
+
 	Player* player;
 	PlayerGUI* playerGUI;
 	TileMap* tileMap;
@@ -38,6 +40,7 @@ private:
 	void initPlayerGUI();
 	void initFonts();
 	void initPauseMenu();
+	void initShaders();
 	void initTileMap();
 
 public:
@@ -48,6 +51,7 @@ public:
 	void updateView(const float& dt);
 	void updatePlayerInput(const float& dt);
 	void updatePlayerGUI(const float& dt);
+	void updatePlayerStats();
 	void updateInput(const float& dt);
 	void updatePauseMenuButtons();
 	void updateTileMap(const float& dt);

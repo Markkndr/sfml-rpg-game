@@ -39,6 +39,29 @@ AttributeComponent* Player::getAttributeComponent()
 }
 
 //Functions
+void Player::loseHp(const int hp)
+{
+	this->attributeComponent->hp -= hp;
+	if (this->attributeComponent->hp < 0)
+	{
+		this->attributeComponent->hp = 0;
+	}
+}
+
+void Player::gainHp(const int hp)
+{
+	this->attributeComponent->hp += hp;
+	if (this->attributeComponent->hp > this->attributeComponent->maxHp)
+	{
+		this->attributeComponent->hp = this->attributeComponent->maxHp; 
+	}
+}
+
+void Player::gainExp(const int exp)
+{
+	this->attributeComponent->gainExp(exp);
+}
+
 void Player::updateAttack()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -113,15 +136,10 @@ void Player::updateAnimation(const float& dt)
 
 void Player::update(const float& dt)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
-	{
-		this->attributeComponent->gainExp(2);
-	}
 	this->movementComponent->update(dt);
-
 	this->attributeComponent->update();
-	system("cls");
-	std::cout << this->attributeComponent->debugPrint() << std::endl;
+	//system("cls");
+	//std::cout << this->attributeComponent->debugPrint() << std::endl;
 
 	this->updateAttack();
 	this->updateAnimation(dt);
@@ -129,9 +147,12 @@ void Player::update(const float& dt)
 	this->hitboxComponent->update();
 }
 
-void Player::render(sf::RenderTarget& target)
+void Player::render(sf::RenderTarget& target, sf::Shader* shader, const bool show_hitbox)
 {
-	target.draw(this->sprite);
+		target.draw(this->sprite, shader);
 
-	this->hitboxComponent->render(target);
+	if (show_hitbox)
+	{
+		this->hitboxComponent->render(target);
+	}
 }

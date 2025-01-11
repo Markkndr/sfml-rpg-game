@@ -10,7 +10,7 @@ State::State(StateData* state_data)
 	this->quit = false;
 	this->paused = false;
 	this->keyTime = 0.f;
-	this->keyTimeMax = 3.f;
+	this->keyTimeMax = 1.f;
 	this->gridSize = state_data->gridSize;
 }
 

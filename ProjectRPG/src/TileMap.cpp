@@ -80,11 +80,11 @@ const sf::Texture* TileMap::getTileSheet() const
 
 const int TileMap::getLayerSize(const int x, const int y, const int z) const
 {
-	if (x >= 0 && x < this->map.size())
+	if (x >= 0 && x < static_cast<int>(this->map.size()))
 	{
-		if (y >= 0 && y < this->map[x].size())
+		if (y >= 0 && y < static_cast<int>(this->map[x].size()))
 		{
-			if (z >= 0 && z < this->map[x][y].size())
+			if (z >= 0 && z < static_cast<int>(this->map[x][y].size()))
 			{
 				return this->map[x][y][z].size();
 			}
@@ -272,7 +272,7 @@ void TileMap::updateCollision(Entity* entity, const float& dt)
 	//Tiles
 	this->layer = 0;
 
-	this->fromX = entity->getGridPosition(this->gridSizeI).x - 4;
+	this->fromX = entity->getGridPosition(this->gridSizeI).x - 12;
 	if (this->fromX < 0)
 	{
 		this->fromX = 0;
@@ -282,7 +282,7 @@ void TileMap::updateCollision(Entity* entity, const float& dt)
 		this->fromX = this->maxSizeWorldGrid.x;
 	}
 
-	this->toX = entity->getGridPosition(this->gridSizeI).x + 5;
+	this->toX = entity->getGridPosition(this->gridSizeI).x + 13;
 	if (this->toX < 0)
 	{
 		this->toX = 0;
@@ -292,7 +292,7 @@ void TileMap::updateCollision(Entity* entity, const float& dt)
 		this->toX = this->maxSizeWorldGrid.x;
 	}
 	
-	this->fromY = entity->getGridPosition(this->gridSizeI).y - 3;
+	this->fromY = entity->getGridPosition(this->gridSizeI).y - 8;
 	if (this->fromY < 0)
 	{
 		this->fromY = 0;
@@ -302,7 +302,7 @@ void TileMap::updateCollision(Entity* entity, const float& dt)
 		this->fromY = this->maxSizeWorldGrid.y;
 	}
 	
-	this->toY = entity->getGridPosition(this->gridSizeI).y + 5;
+	this->toY = entity->getGridPosition(this->gridSizeI).y + 10;
 	if (this->toY < 0)
 	{
 		this->toY = 0;
@@ -375,11 +375,11 @@ void TileMap::update()
 {
 }
 
-void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition)
+void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition, const bool show_collision)
 {
 	this->layer = 0;
 
-	this->fromX = gridPosition.x - 4;
+	this->fromX = gridPosition.x - 15;
 	if (this->fromX < 0)
 	{
 		this->fromX = 0;
@@ -389,7 +389,7 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition)
 		this->fromX = this->maxSizeWorldGrid.x;
 	}
 
-	this->toX = gridPosition.x + 5;
+	this->toX = gridPosition.x + 16;
 	if (this->toX < 0)
 	{
 		this->toX = 0;
@@ -399,7 +399,7 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition)
 		this->toX = this->maxSizeWorldGrid.x;
 	}
 
-	this->fromY = gridPosition.y - 3;
+	this->fromY = gridPosition.y - 10;
 	if (this->fromY < 0)
 	{
 		this->fromY = 0;
@@ -409,7 +409,7 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition)
 		this->fromY = this->maxSizeWorldGrid.y;
 	}
 
-	this->toY = gridPosition.y +  5; 
+	this->toY = gridPosition.y + 11;
 	if (this->toY < 0)
 	{
 		this->toY = 0;
@@ -434,10 +434,13 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition)
 					this->map[x][y][this->layer][k]->render(target);
 				}
 
-				if (this->map[x][y][this->layer][k]->getCollision())
+				if (show_collision)
 				{
-					this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
-					target.draw(this->collisionBox);
+					if (this->map[x][y][this->layer][k]->getCollision())
+					{
+						this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
+						target.draw(this->collisionBox);
+					}
 				}
 			}
 		}

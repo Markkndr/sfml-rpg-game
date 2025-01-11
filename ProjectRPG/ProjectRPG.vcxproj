@@ -198,6 +198,10 @@
     <ClInclude Include="src\TileMap.h" />
     <ClInclude Include="src\stdafx.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\fragment_shader.frag" />
+    <None Include="src\vertex_shader.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

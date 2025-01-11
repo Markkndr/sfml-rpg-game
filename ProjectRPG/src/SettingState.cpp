@@ -11,48 +11,14 @@ void SettingState::initFonts()
 
 void SettingState::initGui()
 {
-	this->buttons["EXIT_STATE_BTN"] = new gui::Button(100.f, 1000.f, 200.f, 50.f, &this->font, "Back", 30,
-		sf::Color(20, 20, 20, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
-		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 
-	this->buttons["APPLY_SETTINGS_BTN"] = new gui::Button(100.f, 800.f, 200.f, 50.f, &this->font, "Apply", 30,
-		sf::Color(20, 20, 20, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
-		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
-
-	std::vector<std::string> modes_str;
-	for (auto &i : this->modes)
-	{
-		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
-	}
-
-	this->dropDownLists["RESOLUTION"] = new gui::DropDownList(100.f, 100.f, 200.f, 50.f, font, modes_str.data(), static_cast<unsigned int>(modes_str.size()), 0);
-}
-
-void SettingState::initText()
-{
-	this->optionsText.setFont(this->font);
-	this->optionsText.setPosition(sf::Vector2f(1000.f, 300.f));
-	this->optionsText.setCharacterSize(30);
-	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
-
-
-	this->optionsText.setString(
-		"Resolution \n\nFullscreen \n\nVsync \n\nAntialiasing \n"
-	);
-}
-
-void SettingState::initVariables()
-{
-	this->modes = sf::VideoMode::getFullscreenModes();
-}
-
-void SettingState::initBackground()
-{
+	//Background
 	this->background.setSize(
 		sf::Vector2f
 		(
-			static_cast<float>(this->window->getSize().x),
-			static_cast<float>(this->window->getSize().y)
+			static_cast<float>(vm.width),
+			static_cast<float>(vm.height)
 		)
 	);
 
@@ -61,6 +27,73 @@ void SettingState::initBackground()
 		throw("ERROR:MAINMENUSTATE::FAILED TO LOAD BACKGROUND TEXTURE");
 	}
 	this->background.setTexture(&this->backgroundTexture);
+
+	//Buttons
+	this->buttons["EXIT_STATE_BTN"] = new gui::Button(
+		gui::p2pX(5.2f, vm), gui::p2pY(92.59f, vm), 
+		gui::p2pX(10.416f, vm), gui::p2pY(4.629f, vm),
+		&this->font, "Back", gui::calcCharSize(vm),
+		sf::Color(20, 20, 20, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+
+	this->buttons["APPLY_SETTINGS_BTN"] = new gui::Button(
+		gui::p2pX(5.2f, vm), gui::p2pY(74.f, vm),
+		gui::p2pX(10.416f, vm), gui::p2pY(4.629f, vm),
+		&this->font, "Apply", gui::calcCharSize(vm),
+		sf::Color(20, 20, 20, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+
+	//Modes
+	std::vector<std::string> modes_str;
+	for (auto &i : this->modes)
+	{
+		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
+	}
+
+	//Dropdownlists
+	this->dropDownLists["RESOLUTION"] = new gui::DropDownList(gui::p2pX(5.208f, vm), gui::p2pY(9.259f, vm), gui::p2pX(10.416f, vm), gui::p2pY(4.629f, vm), gui::calcCharSize(vm),
+		font, modes_str.data(), static_cast<unsigned int>(modes_str.size()), 0);
+
+	//Text init
+	this->optionsText.setFont(this->font);
+	this->optionsText.setPosition(sf::Vector2f(gui::p2pX(52.08f, vm), gui::p2pY(5.55f, vm)));
+	this->optionsText.setCharacterSize(gui::calcCharSize(vm, 100));
+	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
+
+
+	this->optionsText.setString(
+		"Resolution \n\nFullscreen \n\nVsync \n\nAntialiasing \n"
+	);
+}
+
+void SettingState::resetGui()
+{
+	/*
+	* Clears the gui elements and reinitializes them
+	* 
+	* @return void
+	*/
+
+	auto it = this->buttons.begin();
+	for (it = this->buttons.begin(); it != this->buttons.end(); ++it)
+	{
+		delete it->second;
+	}
+	this->buttons.clear();
+
+	auto it2 = this->dropDownLists.begin();
+	for (it2 = this->dropDownLists.begin(); it2 != this->dropDownLists.end(); ++it2)
+	{
+		delete it2->second;
+	}
+	this->dropDownLists.clear();
+
+	this->initGui();
+}
+
+void SettingState::initVariables()
+{
+	this->modes = sf::VideoMode::getFullscreenModes();
 }
 
 void SettingState::initKeybinds()
@@ -85,11 +118,9 @@ SettingState::SettingState(StateData* state_data)
 	:State(state_data)
 {
 	this->initVariables();
-	this->initBackground();
 	this->initFonts();
 	this->initKeybinds();
 	this->initGui();
-	this->initText();
 }
 
 SettingState::~SettingState()

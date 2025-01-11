@@ -23,9 +23,12 @@ public:
     AttributeComponent* getAttributeComponent();
 
     //Functions
+    void loseHp(const int hp);
+    void gainHp(const int hp);
+    void gainExp(const int exp);
     void updateAttack();
     void updateAnimation(const float& dt);
     virtual void update(const float& dt);
-    void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const bool show_hitbox = false);
 };
 

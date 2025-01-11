@@ -17,11 +17,11 @@ private:
 	std::map<std::string, gui::Button*> buttons;
 
 	//Initializers
-	void initBackground(sf::RenderWindow& window);
-	void initContainer(sf::RenderWindow& window);
+	void initBackground(sf::VideoMode& vm);
+	void initContainer(sf::VideoMode& vm);
 
 public:
-	PauseMenu(sf::RenderWindow& window, sf::Font& font);
+	PauseMenu(sf::VideoMode& vm, sf::Font& font);
 	virtual ~PauseMenu();
 
 	//Accessor
@@ -30,6 +30,6 @@ public:
 	//Functions
 	const bool isButtonPressed(const std::string key);
 	void update(const sf::Vector2i& mousePosWindow);
-	void addButton(const std::string key, float y, const std::string text);
+	void addButton(const float width, const float height, const float y, const unsigned text_size, const std::string key, const std::string text);
 	void render(sf::RenderTarget& target);
 };

@@ -142,13 +142,3 @@ void Entity::move(const float dir_x, const float dir_y, const float dt)
 		this->movementComponent->move(dir_x, dir_y, dt); //Sets velocity
 	}
 }
-
-void Entity::update(const float& dt)
-{
-
-}
-
-void Entity::render(sf::RenderTarget& target)
-{ 
-
-}

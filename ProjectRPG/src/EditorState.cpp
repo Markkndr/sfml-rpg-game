@@ -101,11 +101,12 @@ void EditorState::initKeybinds()
 
 void EditorState::initPauseMenu()
 {
-	this->pmenu = new PauseMenu(*this->window, this->font);
+	sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+	this->pmenu = new PauseMenu(vm, this->font);
 
-	this->pmenu->addButton("SAVE", 200.f, "Save");
-	this->pmenu->addButton("LOAD", 300.f, "Load");
-	this->pmenu->addButton("EXIT", 900.f, "Exit");
+	this->pmenu->addButton(gui::p2pX(7.8125f, vm), gui::p2pY(4.629f, vm), gui::p2pY(18.51f, vm), gui::calcCharSize(vm), "SAVE", "Save");
+	this->pmenu->addButton(gui::p2pX(7.8125f, vm), gui::p2pY(4.629f, vm), gui::p2pY(27.7f, vm), gui::calcCharSize(vm), "LOAD", "Load"); 
+	this->pmenu->addButton(gui::p2pX(7.8125f, vm), gui::p2pY(4.629f, vm), gui::p2pY(83.3f, vm), gui::calcCharSize(vm), "EXIT", "Exit");
 }
 
 
@@ -316,7 +317,7 @@ void EditorState::render(sf::RenderTarget* target)
 		target = this->window;
 
 	target->setView(this->view);
-	this->tileMap->render(*target, this->mousePosGrid);
+	this->tileMap->render(*target, this->mousePosGrid, true);
 	this->tileMap->renderDeferred(*target);
 
 	target->setView(this->window->getDefaultView());

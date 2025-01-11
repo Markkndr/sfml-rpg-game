@@ -3,16 +3,15 @@ class AttributeComponent
 {
 public:
 	//Leveling
-	unsigned level;
-	unsigned expCurrent;
-	unsigned expMax;
-	unsigned expNext;
-	unsigned statPoints;
+	int level;
+	int expCurrent;
+	int expNext;
+	int statPoints;
 
 	//Attributes
-	unsigned strenght;
-	unsigned intelligence;
-	unsigned agility;
+	int strenght;
+	int intelligence;
+	int agility;
 
 	//Stats
 	int hp;
@@ -30,13 +29,13 @@ public:
 	//int criticalDamage;
 
 	//Const&Destr
-	AttributeComponent(unsigned level);
+	AttributeComponent(int level);
 	~AttributeComponent();
 
 	//Functions
 	std::string debugPrint() const;
 
-	void gainExp(const unsigned exp);
+	void gainExp(const int exp);
 
 	void updateStats(const bool reset);
 	void updateLevel();

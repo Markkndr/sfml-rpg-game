@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "AttributeComponent.h"
 
-AttributeComponent::AttributeComponent(unsigned level)
+AttributeComponent::AttributeComponent(int level)
 {
 	this->level = level;
 	this->expCurrent = 0;
-	this->expNext = static_cast<unsigned>((50 / 3) * (pow(this->level + 1, 3) - 6 * pow(this->level + 1, 2) + ((this->level + 1) * 17) - 12));
+	this->expNext = static_cast<int>((50 / 3) * (pow(this->level + 1, 3) - 6 * pow(this->level + 1, 2) + ((this->level + 1) * 17) - 12));
 	this->statPoints = 3;
 
 	this->strenght = 1;
@@ -34,7 +34,7 @@ std::string AttributeComponent::debugPrint() const
 	return ss.str();
 }
 
-void AttributeComponent::gainExp(const unsigned exp)
+void AttributeComponent::gainExp(const int exp)
 {
 	this->expCurrent += exp;
 }
@@ -46,15 +46,15 @@ void AttributeComponent::updateStats(const bool reset)
 	this->attackDmgMin = this->strenght * 2 + this->strenght;
 	this->attackDmgMax = this->strenght * 3 + this->strenght;
 
-	this->movementSpeed = this->agility * 1.2;
-	this->attackSpeed = this->agility * 1.5;
+	this->movementSpeed = this->agility * 1.2f;
+	this->attackSpeed = this->agility * 1.5f;
 
 	this->abilityPowerMin = this->intelligence * 10;
 	this->abilityPowerMax = this->intelligence * 20;
 
 	if (reset)
 	{
-		this->hp = maxHp;
+		this->hp = maxHp/2;
 	}
 }
 
@@ -64,7 +64,7 @@ void AttributeComponent::updateLevel()
 	{
 		this->expCurrent -= this->expNext;
 		++this->level;
-		this->expNext = static_cast<unsigned>((50 / 3) * (pow(this->level + 1, 3) - 6 * pow(this->level + 1, 2) + ((this->level + 1) * 17) - 12));
+		this->expNext = static_cast<int>((50 / 3) * (pow(this->level + 1, 3) - 6 * pow(this->level + 1, 2) + ((this->level + 1) * 17) - 12));
 		++this->statPoints;
 	}
 }

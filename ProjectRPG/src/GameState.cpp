@@ -65,7 +65,7 @@ void GameState::initPlayers()
 
 void GameState::initPlayerGUI()
 {
-	this->playerGUI = new PlayerGUI(this->player);
+	this->playerGUI = new PlayerGUI(this->player, this->font, this->stateData->gfxSettings->resolution);
 }
 
 void GameState::initFonts()
@@ -78,9 +78,19 @@ void GameState::initFonts()
 
 void GameState::initPauseMenu()
 {
-	this->pmenu = new PauseMenu(*this->window, this->font);
+	sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 
-	this->pmenu->addButton("EXIT", 900.f, "Exit");
+	this->pmenu = new PauseMenu(vm, this->font);
+
+	this->pmenu->addButton(gui::p2pX(7.8125f, vm), gui::p2pY(4.629f, vm), gui::p2pY(83.3f, vm), gui::calcCharSize(vm), "EXIT", "Exit");
+}
+
+void GameState::initShaders()
+{
+	if (!this->core_shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag"))
+	{
+		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD SHADER" << std::endl;
+	}
 }
 
 void GameState::initTileMap()
@@ -101,6 +111,8 @@ GameState::GameState(StateData* state_data) :
 	this->initFonts();
 	this->initPauseMenu();
 
+	this->initShaders();
+
 	this->initPlayers();
 	this->initPlayerGUI();
 	this->initTileMap();
@@ -117,25 +129,56 @@ GameState::~GameState()
 //Functions
 void GameState::updateView(const float& dt)
 {
-	this->view.setCenter(std::floor(this->player->getPosition().x), std::floor(this->player->getPosition().y));
+	this->view.setCenter(
+		std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 5.f),
+		std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 5.f)
+	);
 }
 
 void GameState::updatePlayerInput(const float& dt)
 {
 	//Update player input
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key (this->keybinds.at("MOVE_UP"))))
-		this->player->move(0.f, -1.f, dt);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
-		this->player->move(-1.f, 0.f, dt);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
-		this->player->move(0.f, 1.f, dt);
+	{
+		this->player->move(-1.f, 0, dt);
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
-		this->player->move(1.f, 0.f, dt);
+	{
+		this->player->move(1.f, 0, dt);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
+	{
+		this->player->move(0, -1.f, dt);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
+	{
+		this->player->move(0, 1.f, dt);
+	}
+
+	//Stats
+	this->updatePlayerStats();
 }
 
 void GameState::updatePlayerGUI(const float& dt)
 {
 	this->playerGUI->update(dt);
+}
+
+void GameState::updatePlayerStats()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P) && this->getKeyTime())
+	{
+		this->player->gainHp(1);
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L) && this->getKeyTime())
+	{
+		this->player->loseHp(1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
+	{
+		this->player->gainExp(5);
+	}
 }
 
 void GameState::updateInput(const float& dt)
@@ -198,9 +241,9 @@ void GameState::render(sf::RenderTarget* target)
 	this->renderTexture.clear();
 
 	this->renderTexture.setView(this->view);
-	this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
+	this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)), false);
 
-	this->player->render(this->renderTexture);
+	this->player->render(this->renderTexture, &this->core_shader, false);
 
 	this->tileMap->renderDeferred(this->renderTexture);
 
