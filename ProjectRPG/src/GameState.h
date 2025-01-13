@@ -6,6 +6,7 @@
 
 class PasueMenu;
 class Player;
+class Enemies;
 class TileMap;
 class PlayerGUI;
 class sf::View;
@@ -16,7 +17,9 @@ class GameState :
 	public State
 {
 private:
+	//Variables
 	sf::View view;
+	sf::Vector2i viewGridPos;
 	sf::RenderTexture renderTexture;
 	sf::Sprite renderSprite;
 
@@ -27,6 +30,9 @@ private:
 
 	Player* player;
 	PlayerGUI* playerGUI;
+
+	Enemies* enemy;
+
 	TileMap* tileMap;
 
 	//Functions
@@ -36,6 +42,7 @@ private:
 	void initView();
 	void initKeybinds();
 	void initTextures();
+	void initEnemies();
 	void initPlayers();
 	void initPlayerGUI();
 	void initFonts();

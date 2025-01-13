@@ -99,6 +99,12 @@
     <ClCompile Include="src\PlayerGUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\MapGeneration.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enemies.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h">
@@ -157,6 +163,12 @@
     </ClInclude>
     <ClInclude Include="src\PlayerGUI.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapGeneration.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Enemies.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

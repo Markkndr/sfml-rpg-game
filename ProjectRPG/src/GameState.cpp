@@ -55,12 +55,21 @@ void GameState::initTextures()
 	{
 		throw "ERROR::GAME_STATE::COULD NOT LOAD PLAYER TEXTURE";
 	}
+
+	if (!this->textures["ENEMY_SHEET"].loadFromFile("assets/enemies/textures/Slime.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD NOT LOAD ENEMY TEXTURE";
+	}
+}
+
+void GameState::initEnemies()
+{
+	this->enemy = new Enemies(960, 540, this->textures["ENEMY_SHEET"]);
 }
 
 void GameState::initPlayers()
 {
 	this->player = new Player(960, 540, this->textures["PLAYER_SHEET"]);
-
 }
 
 void GameState::initPlayerGUI()
@@ -113,6 +122,8 @@ GameState::GameState(StateData* state_data) :
 
 	this->initShaders();
 
+	this->initEnemies();
+
 	this->initPlayers();
 	this->initPlayerGUI();
 	this->initTileMap();
@@ -123,6 +134,9 @@ GameState::~GameState()
 	delete this->pmenu;
 	delete this->player;
 	delete this->playerGUI;
+
+	delete this->enemy;
+
 	delete this->tileMap;
 }
 
@@ -149,6 +163,8 @@ void GameState::updateView(const float& dt)
 	{
 		this->view.setCenter(this->view.getCenter().x, 3000.f - this->view.getSize().y / 2.f);
 	}
+	this->viewGridPos.x = static_cast<int>(this->view.getCenter().x) / static_cast<int>(this->stateData->gridSize);
+	this->viewGridPos.y = static_cast<int>(this->view.getCenter().y) / static_cast<int>(this->stateData->gridSize);
 }
 
 void GameState::updatePlayerInput(const float& dt)
@@ -240,6 +256,7 @@ void GameState::update(const float& dt)
 		this->updatePlayerInput(dt);
 		this->updatePlayerGUI(dt);
 
+		this->enemy->update(dt, this->mousePosView);
 		this->player->update(dt, this->mousePosView);
 
 		this->updateTileMap(dt);
@@ -261,9 +278,10 @@ void GameState::render(sf::RenderTarget* target)
 	this->renderTexture.setView(this->view);
 	this->tileMap->render(
 		this->renderTexture,
-		this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)),
+		this->viewGridPos,
 		&this->core_shader, this->player->getCenter(), false);
 
+	this->enemy->render(this->renderTexture, &this->core_shader, false);
 	this->player->render(this->renderTexture, &this->core_shader, false);
 
 	this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());

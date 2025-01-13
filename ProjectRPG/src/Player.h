@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Entity.h"
+#include "Enemies.h"
 
 class Entity;
 
@@ -14,7 +14,7 @@ private:
     
     //Initializer
     void initVariables();
-    void initComponents();
+    void initComponents(sf::Texture& texture_sheet);
 
 public:
     Player(float x, float y, sf::Texture& texture_sheet);

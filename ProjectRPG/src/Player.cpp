@@ -7,18 +7,8 @@ void Player::initVariables()
 	this->attacking = false;
 }
 
-void Player::initComponents()
+void Player::initComponents(sf::Texture& texture_sheet)
 {
-
-}
-
-//Const and Destr
-Player::Player(float x, float y, sf::Texture& texture_sheet)
-{
-	this->initVariables();
-
-	this->setPosition(x, y);
-
 	this->createHitboxComponent(this->sprite, 25, 38, 45, 88);
 	this->createMovementComponent(280.f, 1500.f, 700.f);
 	this->createAnimationComponent(texture_sheet);
@@ -32,6 +22,16 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 	this->spellHitbox.setFillColor(sf::Color::Transparent);
 	this->spellHitbox.setOutlineThickness(1.f);
 	this->spellHitbox.setOutlineColor(sf::Color::Green);
+}
+
+//Const and Destr
+Player::Player(float x, float y, sf::Texture& texture_sheet)
+{
+	this->initVariables();
+
+	this->setPosition(x, y);
+
+	this->initComponents(texture_sheet);
 }
 
 Player::~Player()

@@ -86,12 +86,22 @@ const int TileMap::getLayerSize(const int x, const int y, const int z) const
 		{
 			if (z >= 0 && z < static_cast<int>(this->map[x][y].size()))
 			{
-				return this->map[x][y][z].size();
+				return static_cast<int>(this->map[x][y][z].size());
 			}
 		}
 	}
 
 	return -1;
+}
+
+const sf::Vector2i TileMap::getMaxSizeGrid() const
+{
+	return this->maxSizeWorldGrid;
+}
+
+const sf::Vector2f TileMap::getMaxSizeF() const
+{
+	return this->maxSizeWorldF;
 }
 
 //Functions

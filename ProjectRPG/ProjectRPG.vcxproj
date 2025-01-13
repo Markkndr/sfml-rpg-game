@@ -153,6 +153,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Enemies.cpp" />
+    <ClCompile Include="src\MapGeneration.cpp" />
     <ClCompile Include="src\PlayerGUI.cpp" />
     <ClCompile Include="src\AttributeComponent.cpp" />
     <ClCompile Include="src\GraphicsSettings.cpp" />
@@ -178,6 +180,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Enemies.h" />
+    <ClInclude Include="src\MapGeneration.h" />
     <ClInclude Include="src\PlayerGUI.h" />
     <ClInclude Include="src\AttributeComponent.h" />
     <ClInclude Include="src\GraphicsSettings.h" />
