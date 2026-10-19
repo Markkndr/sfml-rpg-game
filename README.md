@@ -122,7 +122,7 @@ You play as a witch exploring a tile-based world, casting spells at the cursor w
 
 ### Game loop & state stack
 
-`Game` owns the window and a `std::stack<State*>`. Every frame it updates delta time, polls events, and updates/renders **only the top state**. States push new states (e.g. the main menu pushes `GameState`) and quit by flagging themselves for removal.
+`Game` owns the window and a `std::stack<std::unique_ptr<State>>`, so each state's lifetime is managed automatically (RAII). Every frame it updates delta time, polls events, and updates/renders **only the top state**. States push new states (e.g. the main menu pushes `GameState`) and quit by flagging themselves for removal.
 
 ```
   main() ──► Game::Run()
@@ -208,7 +208,7 @@ SFML is bundled in the repository, so there's nothing else to install.
 ### Build & run
 
 ```bash
-git clone https://github.com/Markkndr/ProjectRPG.git
+git clone https://github.com/Markkndr/sfml-rpg-game.git
 ```
 
 1. Open `ProjectRPG.sln` in Visual Studio.
@@ -240,7 +240,7 @@ All configuration lives in [`ProjectRPG/config/`](ProjectRPG/config):
 One value per line:
 
 ```ini
-ProjectPRG      ; window title
+ProjectRPG      ; window title
 1920 1080       ; resolution (width height)
 0               ; fullscreen (0/1)
 0               ; V-sync (0/1)
@@ -275,7 +275,7 @@ MOVE_RIGHT D
 ## 📂 Project Structure
 
 ```
-ProjectRPG/
+sfml-rpg-game/
 ├── ProjectRPG.sln
 ├── dependencies/
 │   └── SFML/                  # Vendored SFML 2.6.1 headers & static libs

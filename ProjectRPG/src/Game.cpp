@@ -68,7 +68,7 @@ void Game::initKeys()
 
 void Game::initStates()
 {
-    this->states.push(new MainMenuState(&this->stateData));
+    this->states.push(std::make_unique<MainMenuState>(&this->stateData));
 }
 
 //Const&Dest
@@ -84,13 +84,11 @@ Game::Game()
 
 Game::~Game()
 {
-    delete this->window;
-
+    // States are owned by std::unique_ptr; destroy them before the window they render to.
     while (!this->states.empty())
-    {
-        delete this->states.top();
         this->states.pop();
-    }
+
+    delete this->window;
 }
 
 //Functions
@@ -128,7 +126,6 @@ void Game::Update()
             if (this->states.top()->getQuit())
             {
                 this->states.top()->endState();
-                delete this->states.top();
                 this->states.pop();
             }
         }
