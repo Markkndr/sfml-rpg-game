@@ -16,7 +16,7 @@ private:
 	float dt;
 	float gridSize;
 
-	std::stack<State*> states;
+	std::stack<std::unique_ptr<State>> states;
 
 	std::map<std::string, int> supportedKeys;
 

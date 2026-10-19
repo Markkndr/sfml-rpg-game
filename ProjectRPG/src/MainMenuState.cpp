@@ -130,19 +130,19 @@ void MainMenuState::updateButtons()
 	//Start Game
 	if (this->buttons["GAME_STATE_BTN"]->isPressed())
 	{
-		this->states->push(new GameState(this->stateData));
+		this->states->push(std::make_unique<GameState>(this->stateData));
 	}
 
 	//Settings
 	if (this->buttons["SETTINGS_STATE_BTN"]->isPressed())
 	{
-		this->states->push(new SettingState(this->stateData));
+		this->states->push(std::make_unique<SettingState>(this->stateData));
 	}
 
 	//Editor
 	if (this->buttons["EDITOR_STATE_BTN"]->isPressed())
 	{
-		this->states->push(new EditorState(this->stateData));
+		this->states->push(std::make_unique<EditorState>(this->stateData));
 	}
 
 	//Quit game

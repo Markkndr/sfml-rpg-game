@@ -16,7 +16,7 @@ public:
 	float gridSize;
 	sf::RenderWindow* window;
 	std::map<std::string, int>* supportedKeys;
-	std::stack<State*>* states;
+	std::stack<std::unique_ptr<State>>* states;
 	GraphicsSettings* gfxSettings;
 };
 
@@ -27,7 +27,7 @@ private:
 protected:
 	//Variables
 	StateData* stateData;
-	std::stack<State*>* states;
+	std::stack<std::unique_ptr<State>>* states;
 	sf::RenderWindow* window;
 	std::map<std::string, int>* supportedKeys;
 	std::map<std::string, int> keybinds;
